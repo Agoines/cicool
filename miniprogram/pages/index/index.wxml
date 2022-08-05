@@ -2,14 +2,27 @@
     <view id="image" class="cover-box" style="background-image: url({{imageUri}});">
         <view class="flex-row" style="display: block;text-align: center;margin: 450rpx auto;">
             <view class="flex-view-item">
-                <text id="text" class="number">0</text><text>天</text>
+                <text style="color:{{textColor}}" class="number">0</text>
+                <text style="color:{{textColor}}">天</text>
             </view>
             <view class="flex-view-item">
-                <text id="text">今日学习 0 词</text>
+                <text style="color:{{textColor}}">今日学习 0 词</text>
             </view>
             <view class="flex-view-item">
-                <text id="text">红宝书</text>
+                <text style="color:{{textColor}}">红宝书</text>
             </view>
+        </view>
+        <view class="page__hd" style="position:fixed; bottom:0;width:100%; height: 15%;">
+            <movable-area style="width:100%; height: 100%;">
+                <movable-view style="width:100%; height: 75rpx;"
+                              direction="vertical"
+                              inertia="true"
+                >
+                    <view style="width:100%; text-align: center;">
+                        <text style="text-align: center;">今日份的单词</text>
+                    </view>
+                </movable-view>
+            </movable-area>
         </view>
     </view>
 
