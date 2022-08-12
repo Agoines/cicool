@@ -1,0 +1,38 @@
+.cover-box {
+    position: fixed;
+    background-size: 100% 100%;
+    height: 100%;
+    width: 100%;
+}
+
+.title {
+    position: absolute;
+    width: max-content;
+    height: 32px;
+    left: 20px;
+    top: 86px;
+
+    font-family: system-ui;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    /* identical to box height */
+    color: #FFFFFF;
+}
+
+.sub_title {
+    position: absolute;
+    width: max-content;
+    height: 21px;
+    left: 20px;
+    top: 125px;
+
+    font-family: system-ui;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+
+    color: #FFFFFF;
+}

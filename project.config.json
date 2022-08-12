@@ -9,8 +9,7 @@
     "projectname": "cicool",
     "setting": {
         "useCompilerPlugins": [
-            "typescript",
-            "sass"
+            "typescript"
         ],
         "babelSetting": {
             "ignore": [],

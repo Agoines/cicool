@@ -1,0 +1,15 @@
+<view class="page">
+    <view id="image" class="cover-box" style="background-image: url({{imageUri}});">
+        <text class="title">
+            本次单词复习
+        </text>
+        <text class="sub_title">
+            一共学习 24 个单词
+        </text>
+        <view class="card_background">
+            <view class="decorate">
+
+            </view>
+        </view>
+    </view>
+</view>

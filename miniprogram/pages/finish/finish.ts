@@ -1,4 +1,5 @@
 Page({
+    data: {},
     onLoad: function () {
         let height = wx.getSystemInfoSync().windowHeight;
         let width = wx.getSystemInfoSync().windowWidth;
@@ -6,5 +7,5 @@ Page({
         this.setData({
             imageUri: imagePath
         })
-    },
+    }
 });

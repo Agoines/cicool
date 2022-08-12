@@ -1,7 +1,10 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/word/word"
+    "pages/word/word",
+    "pages/finish/finish",
+    "pages/search/search",
+    "pages/setting/setting"
   ],
   "entryPagePath": "pages/index/index",
   "window": {

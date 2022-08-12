@@ -1,1 +1,24 @@
-<view></view>
+<view class="page">
+    <view id="image" class="cover-box" style="background-image: url({{imageUri}});">
+        <text class="title">
+            Demo
+        </text>
+        <text class="sub_title">
+            对应的注释
+        </text>
+        <view class="flex-row button_layout" style="display: block;text-align: center;margin-top: 450rpx;">
+            <view class="flex-view-item button">
+                v. 提醒,使想起
+            </view>
+            <view class="flex-view-item button" style="margin-top:6px">
+                n. 中国; [电影] 中国[词典]
+            </view>
+            <view class="flex-view-item button" style="margin-top:6px;">
+                adj. 思想的
+            </view>
+            <view class="flex-view-item button" style="margin-top:6px">
+                vt. 看；期待；注意；面向；看上去像
+            </view>
+        </view>
+    </view>
+</view>

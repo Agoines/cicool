@@ -1,6 +1,6 @@
 {
-    "usingComponents": {},
-    "onReachBottomDistance": 0,
-    "navigationStyle": "custom",
-    "navigationBarTextStyle": "white"
+  "usingComponents": {},
+  "onReachBottomDistance": 0,
+  "navigationStyle": "custom",
+  "navigationBarTextStyle": "white"
 }
