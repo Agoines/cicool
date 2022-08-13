@@ -2,7 +2,7 @@
 
 <view class="header">
     <view class="background">
-        <image class="bgImg" src="{{userInfo.avatar_pic || defaultPic}}" mode="scaleToFill"/>
+        <image class="bgImg" src="{{getApp().userInfo.appid || defaultPic}}" mode="scaleToFill"/>
     </view>
 </view>
 

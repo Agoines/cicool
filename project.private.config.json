@@ -3,7 +3,9 @@
     "projectname": "cicool",
     "setting": {
         "compileHotReLoad": true,
-        "bigPackageSizeSupport": true
+        "bigPackageSizeSupport": true,
+        "autoAudits": true,
+        "urlCheck": true
     },
     "libVersion": "2.25.2"
 }
