@@ -7,5 +7,15 @@ App({
     },
 
     onLaunch() {
+
     },
+
+    emptyToken() {
+        return wx.getStorageSync('token') === ''
+    },
+
+    getToken() {
+        return 'TOKEN=' + wx.getStorageSync('token')
+    }
 })
+

@@ -6,7 +6,9 @@ let distance = 0;
 // 是否是移动
 let isMove = false;
 
-function login() {
+function login(
+    complete
+) {
     wx.login({
         success: function (res) {
             //发送请求
@@ -19,11 +21,11 @@ function login() {
                     'content-type': 'application/json',
                 },
                 // 调用成功口
-                success: (r: any) => {
+                success: (r) => {
                     const res = r.data
                     const data = res.data
                     // 判断返回值
-                    if (res.errcode == 0) {
+                    if (res.errcode === 0) {
                         // 存储对应的 信息
                         try {
                             wx.setStorageSync('userId', data.id)
@@ -40,49 +42,24 @@ function login() {
                             }
                         })
                     }
-                }
+                },
+                complete: complete
             })
         }
     })
 }
 
-//验证登录是否过期
-function checkSession(
-    complete: () => void
-) {
-    wx.checkSession({
-        success: () => {
-            let token = wx.getStorageSync('token')
-            // 没有过期
-
-            if (token === '') {
-                login()
-            } else {
-                app.globalData.isLogin = true
-            }
-
-        }, fail: () => {
-            wx.showModal({
-                title: '提示', content: '你的登录信息过期了，请重新登录', showCancel: false, success: () => {
-                    app.globalData.isLogin = false
-                    login()
-                }
-            })
-        },
-        complete: complete
-    })
-}
 
 Page({
     data: {
         wordBookName: '',
     }, onLoad: function () {
-        checkSession(
+        login(
             () => {
                 const isLogin = app.globalData.isLogin
                 if (isLogin) {
                     console.log('id' + wx.getStorageSync('bookId'))
-                    if (wx.getStorageSync('bookId') == -1) {
+                    if (wx.getStorageSync('bookId') === -1) {
                         this.setData({wordBookName: "未选择词书"})
                     } else {
                         wx.request({
@@ -94,9 +71,9 @@ Page({
                             },
                             header: {
                                 'content-type': 'application/json',
-                                'cookie': 'TOKEN=iZgNcbJBqea3gx333fJnCntwQfH3XLbCdd_7bHh-l1U='
+                                'cookie': app.getToken()
                             },
-                            success: (res: any) => {
+                            success: (res) => {
                                 console.log(res)
                                 this.setData({wordBookName: "其他"})
                             }
@@ -121,7 +98,7 @@ Page({
      * 手指初始化位置
      * @param event
      */
-    touchStart: (event: TouchEvent) => {
+    touchStart: (event) => {
         // 三指手势是截屏，所以判断是否小于三个手指
         isMove = event.changedTouches.length < 3 && event.changedTouches.length > 0;
         if (isMove) {
@@ -133,7 +110,7 @@ Page({
      * 手指最终位置
      * @param event
      */
-    touchEnd: (event: TouchEvent) => {
+    touchEnd: (event) => {
         if (isMove) {
             distance = event.changedTouches[0].pageX - pageX
             if (distance > 30) {

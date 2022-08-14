@@ -1,13 +1,1 @@
-<!--pages/user/user.wxml-->
-
-<view class="header">
-    <view class="background">
-        <image class="bgImg" src="{{getApp().userInfo.appid || defaultPic}}" mode="scaleToFill"/>
-    </view>
-</view>
-
-<view class="optionList">
-
-</view>
-<view class="logoutBtn" hover-class="wasTaped" bindtap="logout" wx:if="{{isLogin}}">退出登录</view>
 
