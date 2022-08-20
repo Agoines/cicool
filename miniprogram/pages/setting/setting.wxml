@@ -1,1 +1,46 @@
+<view class="page">
+    <view class="page-section-title">单词书</view>
+    <scroll-view style="height:300rpx;background:#00000000;width:100%;"
+                 scroll-x="true">
+        <view style="width: 2340rpx; height:300rpx;">
+            <view wx:for="{{booksData}}"
+                  data-text="{{item.bookId}}"
+                  bindtap="handleTap"
+                  class="book-item"
+                  wx:key="index">
+                <view class="content">
+                    <text class="book-text">{{item.name}}</text>
+                    <text class="book-description">{{item.description}}</text>
+                </view>
 
+            </view>
+        </view>
+    </scroll-view>
+
+
+    <view class="page-section-title">界面功能</view>
+
+    <view class="weui-cell weui-cell_switch">
+        <view class="weui-cell__bd">遮挡单词或释义时倒计时</view>
+        <view class="weui-cell__ft">
+            <switch/>
+        </view>
+    </view>
+
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_switch">
+            <view class="weui-cell__bd">单词自动发音</view>
+            <view class="weui-cell__ft">
+                <switch/>
+            </view>
+        </view>
+
+
+        <mp-cell ext-class="weui-cell_select weui-cell_select-after">
+            <view class="weui-label">单词发音</view>
+            <picker bindchange="bindPronunciationChange" value="{{pronunciationIndex}}" range="{{pronunciations}}">
+                <view class="weui-select">{{pronunciations[pronunciationIndex]}}</view>
+            </picker>
+        </mp-cell>
+    </view>
+</view>

@@ -58,27 +58,8 @@ Page({
             () => {
                 const isLogin = app.globalData.isLogin
                 if (isLogin) {
-                    console.log('id' + wx.getStorageSync('bookId'))
                     if (wx.getStorageSync('bookId') === -1) {
                         this.setData({wordBookName: "未选择词书"})
-                    } else {
-                        wx.request({
-                            method: "POST",
-                            url: app.globalData.domain + '/statistic/getSingleWBData',
-                            data: {
-                                "userId": wx.getStorageSync('userId'),
-                                "bookId": wx.getStorageSync('bookId')
-                            },
-                            header: {
-                                'content-type': 'application/json',
-                                'cookie': app.getToken()
-                            },
-                            success: (res) => {
-                                console.log(res)
-                                this.setData({wordBookName: "其他"})
-                            }
-                        })
-
                     }
                 } else {
                     this.setData({wordBookName: "请点击登陆"})
@@ -94,6 +75,27 @@ Page({
         })
 
     },
+
+
+    onShow() {
+
+        wx.request({
+            method: "POST",
+            url: app.globalData.domain + '/statistic/getSingleWBData',
+            data: {
+                "userId": wx.getStorageSync('userId'),
+                "bookId": wx.getStorageSync('bookId')
+            },
+            header: {
+                'content-type': 'application/json',
+                'cookie': app.getToken()
+            },
+            success: (res) => {
+                this.setData({wordBookName: res.data.book.name})
+            }
+        })
+    },
+
     /**
      * 手指初始化位置
      * @param event
