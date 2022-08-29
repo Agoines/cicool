@@ -1,7 +1,11 @@
 <view class="page">
     <view class="header_container">
-        <image src="{{avatarPic}}" class="avatar"/>
-        <text class="nickname">{{nickname}}</text>
+        <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+            <image class="avatar" src="{{avatarPic}}"></image>
+        </button>
+
+        <text class="nickname" bind:tap="openSetting">{{nickname}}</text>
+        <image src="../../src/search.svg" class="search-icon" bind:tap="openSearch"></image>
     </view>
     <view class="container">
         <view class="learned-text">已经学</view>
@@ -18,3 +22,9 @@
         </view>
     </view>
 </view>
+<mp-dialog title="是否选择该图片为头像" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+
+    <view>
+        <image src="{{path}}" class="avatar-dialog" mode="aspectFill"></image>
+    </view>
+</mp-dialog>

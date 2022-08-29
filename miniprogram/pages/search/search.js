@@ -1,4 +1,6 @@
-let app = getApp()
+const wordApi = require("../../utils/wordApi.js");
+
+const app = getApp()
 Page({
     data: {
         inputShowed: false,
@@ -9,36 +11,29 @@ Page({
             search: this.search.bind(this)
         })
     },
-    search: function (value) {
-        return new Promise((resolve, reject) => {
-            console.log(value)
-            console.log('token' + app.getToken())
-            wx.request({
-                method: "POST",
-                url: app.globalData.domain + '/word/getSearchResult',
-                data: {
-                    "userId": wx.getStorageSync('userId'),
-                    "keyword": value,
-                    "skip": 0
-                },
-                header: {
-                    'content-type': 'application/json',
-                    'cookie': app.getToken()
-                },
-                success: (res) => {
-                    let directSearch = res.data.directSearch
-                    let resolveList = [];
-                    for (let index = 0; index < directSearch.length; index++) {
-                        let item = {}
-                        item.text = directSearch[index].word + '\n' + directSearch[index].translation;
-                        item.word = directSearch[index].word;
-                        item.translation = directSearch[index].translation;
-                        resolveList[index] = item
-                    }
+    search: (value) => {
+        return new Promise(async (resolve, reject) => {
+            const searchData = await wordApi.getSearchResult(
+                app.getUserId(),
+                value,
+                app.getToken()
+            ).catch(any =>
+                reject(any)
+            )
+            console.log(searchData)
+            // 获取对应的单词
+            let directSearch = searchData.directSearch
+            let resolveList = [];
+            // 转换为对应数组
+            for (let index = 0; index < directSearch.length; index++) {
+                let item = {}
+                item.text = directSearch[index].word + '\n' + directSearch[index].translation;
+                item.word = directSearch[index].word;
+                item.translation = directSearch[index].translation;
+                resolveList[index] = item
+            }
+            resolve(resolveList)
 
-                    resolve(resolveList)
-                }
-            })
         })
     },
 

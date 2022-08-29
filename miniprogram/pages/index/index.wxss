@@ -4,14 +4,24 @@
     top: 0;
     width: 100%;
     margin: 10px 0 10px 0;
+    padding: 0 20px 10px 20px;
     display: flex;
     flex-direction: row;
+}
+
+.avatar-wrapper {
+    border-radius: 20px;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    max-width: 40px;
 }
 
 .avatar {
     width: 40px;
     height: 40px;
-    margin: 0 10px 0 20px;
+
 }
 
 .nickname {
@@ -22,6 +32,12 @@
     font-weight: 400;
     color: #77818A;
     font-size: 18px;
+}
+
+.search-icon {
+    width: 32px;
+    height: 32px;
+    margin: 4px 40px 4px 10px;
 }
 
 .page {
@@ -117,4 +133,9 @@
     line-height: 27px;
 
     color: #FFFFFF;
+}
+
+.avatar-dialog {
+    width: 80px;
+    height: 80px;
 }

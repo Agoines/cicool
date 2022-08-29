@@ -1,6 +1,8 @@
 {
-  "usingComponents": {},
   "onReachBottomDistance": 0,
   "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "词酷"
+  "navigationBarTitleText": "词酷",
+  "usingComponents": {
+    "mp-dialog": "weui-miniprogram/dialog/dialog"
+  }
 }

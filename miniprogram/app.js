@@ -1,6 +1,5 @@
-const domain = 'https://apitest.nijigen.fun/cicool'
+const userApi = require("utils/userApi.js");
 
-let isLogin = false
 let token = ''
 let userId = ''
 let bookId = ''
@@ -8,75 +7,64 @@ let bookId = ''
 let nickname = ''
 let avatarPic = ''
 
-let getAvatarPic = false
-let getNickname = false
+let isLogin = false
 
-function getToken() {
-    return 'TOKEN=' + token
-}
+function afterLogin() {
 
-function getUserId() {
-    return userId
 }
 
 App({
-    // 对应的例名
+    // 全局
     globalData: {},
 
-    onLaunch: function () {
+    afterLogin(thing) {
+        afterLogin = thing
+    },
+
+    onLaunch() {
         wx.login({
-                success: function (res) {
+                success: async function (res) {
                     //发送请求
-                    wx.request({
-                        method: "POST",
-                        url: domain + '/user/login',
-
-                        data: {
-                            code: res.code
-                        },
-
-                        header: {
-                            'content-type': 'application/json',
-                        },
-                        // 调用成功口
-                        success(r) {
-                            const res = r.data
-                            const data = res.data
-                            console.log(data)
-                            // 判断返回值
-                            if (res.errcode === 0) {
-                                // 存储对应的 信息
-                                try {
-                                    userId = data.id
-                                    token = data.token
-                                    bookId = data.bookId
-                                    nickname = data.nickName
-                                    avatarPic = data.avatarPic
-                                } catch (e) {
-                                    console.log(e)
-                                }
-                                isLogin = true
-                            }
-                        },
-                    })
+                    let data = await userApi.login(res.code)
+                    // 判断是否报错
+                    if (data.errcode === 0) {
+                        userId = data.data.id
+                        console.log('userId：' + userId)
+                        token = data.data.token
+                        bookId = data.data.bookId
+                        nickname = data.data.nickName
+                        avatarPic = data.data.avatarPic
+                        isLogin = true
+                    }
+                    afterLogin()
                 }
             }
         )
     },
 
+    getToken() {
+        return 'TOKEN=' + token
+    },
+
+    getUserId() {
+        return userId
+    },
+
     getNickname() {
-        console.log('getNickname')
-        if (nickname === '') {
+        if (nickname === '' || !isLogin) {
             return '词酷用户#8848'
         } else {
             return nickname
         }
     },
-
+    setAvatarPic(uri) {
+        avatarPic = uri
+    },
     getAvatarPic() {
-        console.log('getAvatarPic')
-        if (avatarPic === '') {
-            return "https://api.multiavatar.com/" + getUserId() + "svg"
+        if (!isLogin) {
+            return "https://api.multiavatar.com/cicool.svg"
+        } else if (avatarPic === '') {
+            return "https://api.multiavatar.com/" + userId + ".svg"
         } else {
             return avatarPic
         }
