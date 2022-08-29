@@ -1,8 +1,120 @@
-.number {
-    font-weight: 600;
-    font-size: 120rpx;
+.header_container {
+    text-align: left;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin: 10px 0 10px 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    margin: 0 10px 0 20px;
+}
+
+.nickname {
+    flex: 1;
+    line-height: 40px;
+    margin: 0 20px 0 10px;
     font-style: normal;
-    line-height: 56px;
-    /* identical to box height */
+    font-weight: 400;
+    color: #77818A;
+    font-size: 18px;
+}
+
+.page {
     text-align: center;
+}
+
+.container {
+    margin: 180px 0 0 0;
+    vertical-align: text-bottom;
+}
+
+.learned-text {
+    display: inline-block;
+    margin: 0 6px 0 6px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+    color: #77818A;
+}
+
+.num {
+    display: inline-block;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 56px;
+    color: #03040C;
+}
+
+.footer_container {
+    /* 底部 */
+    position: fixed;
+    bottom: 0;
+
+    width: 100%;
+    height: 54px;
+
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 54px;
+}
+
+.review-background {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    margin: 0 6px 0 12px;
+
+    border: 2px solid rgba(119, 129, 138, 0.2);
+    border-radius: 26px;
+
+    /* 居中 */
+    display: flex;
+    align-items: center;
+    vertical-align: center;
+    justify-content: center;
+}
+
+.review-text {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 27px;
+    text-align: center;
+
+    color: #000000;
+}
+
+.learn-background {
+    flex: 1;
+
+    width: 100%;
+    height: 100%;
+    margin: 0 12px 0 6px;
+
+    background: #01050D;
+    border-radius: 26px;
+
+    /* 居中 */
+    display: flex;
+    align-items: center;
+    vertical-align: center;
+    justify-content: center;
+}
+
+.learn-text {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 27px;
+
+    color: #FFFFFF;
 }

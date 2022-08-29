@@ -4,7 +4,8 @@
     "pages/word/word",
     "pages/finish/finish",
     "pages/search/search",
-    "pages/setting/setting"
+    "pages/setting/setting",
+    "pages/data/data"
   ],
   "entryPagePath": "pages/index/index",
   "window": {
