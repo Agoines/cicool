@@ -1,23 +1,37 @@
+const statisticApi = require("../../utils/statisticApi.js");
+
 const app = getApp();
+
+async function openWord(type) {
+    await wx.navigateTo({
+        url: "../word/word?type=" + type
+    })
+}
+
 Page({
     data: {
         nickname: app.getNickname(),
         avatarPic: app.getAvatarPic(),
-        dialogShow: false,
-        buttons: [{text: '取消'}, {text: '确定'}],
-        path: ""
+        learnData: 0
     },
 
-    onLoad: function () {
-        wx.showNavigationBarLoading().then(r => console.log(r));
-        
+    onLoad: async function () {
+        await wx.showNavigationBarLoading();
         let $this = this
-        let thing = function () {
+        let thing = async function () {
             $this.setData({
                 nickname: app.getNickname(),
                 avatarPic: app.getAvatarPic(),
             })
-            wx.hideNavigationBarLoading().then(r => console.log(r));
+            await wx.hideNavigationBarLoading();
+            let allLearnData = await statisticApi.getAllLearnData(
+                app.getUserId(),
+                app.getToken()
+            )
+
+            $this.setData({
+                learnData: allLearnData.master
+            })
         }
         app.afterLogin(
             thing
@@ -30,19 +44,23 @@ Page({
         })
     },
 
-    openSetting() {
-        wx.navigateTo({
-            url: "../setting/setting", success: () => {
-
-            }
+    async openSetting() {
+        await wx.navigateTo({
+            url: "../setting/setting"
         })
     },
-    openSearch() {
-        wx.navigateTo({
-            url: "../search/search", success: () => {
-
-            }
+    async openSearch() {
+        await wx.navigateTo({
+            url: "../search/search"
         })
+    },
+
+    async openReview() {
+        await openWord('review')
+    },
+
+    async openLearn() {
+        await openWord('learn')
     }
 
 })

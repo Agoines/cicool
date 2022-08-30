@@ -37,10 +37,12 @@ Page({
         })
     },
 
-    selectResult: function (e) {
-        wx.setClipboardData({
-                data: '单词：' + e.detail.item.text + '\n翻译' + e.detail.item.translation
+    selectResult: async function (event) {
+        console.log(event)
+        await wx.setClipboardData({
+                data: '单词：' + event.detail.item.text + '\n翻译' + event.detail.item.translation
             }
         )
+
     },
 });

@@ -5,7 +5,8 @@
     "pages/finish/finish",
     "pages/search/search",
     "pages/setting/setting",
-    "pages/data/data"
+    "pages/data/data",
+    "pages/search/wordDetail/wordDetail"
   ],
   "entryPagePath": "pages/index/index",
   "window": {

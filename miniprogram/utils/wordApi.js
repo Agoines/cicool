@@ -78,7 +78,7 @@ const getBasicLearningData = (userId, wordBookId, token) => {
     })
 }
 
-const getLearningData = (userId, wordBookId, size = 10, sample = true, token) => {
+const getLearningData = (token, userId, wordBookId, size = 10, sample = true) => {
     return new Promise((resolve, reject) => {
         wx.request({
             method: "POST",
@@ -105,7 +105,7 @@ const getLearningData = (userId, wordBookId, size = 10, sample = true, token) =>
     })
 }
 
-const getReviewData = (userId, wordBookId, size = 10, sample = true, token) => {
+const getReviewData = (token, userId, wordBookId, size = 10, sample = true) => {
     return new Promise((resolve, reject) => {
         wx.request({
             method: "POST",

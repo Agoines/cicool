@@ -21,25 +21,29 @@ App({
         afterLogin = thing
     },
 
-    onLaunch() {
-        wx.login({
+    async onLaunch() {
+        await wx.login({
                 success: async function (res) {
                     //发送请求
                     let data = await userApi.login(res.code)
                     // 判断是否报错
                     if (data.errcode === 0) {
-                        userId = data.data.id
-                        console.log('userId：' + userId)
-                        token = data.data.token
-                        bookId = data.data.bookId
-                        nickname = data.data.nickName
-                        avatarPic = data.data.avatarPic
+                        data = data.data
+                        userId = data.id
+                        token = data.token
+                        bookId = data.bookId
+                        nickname = data.nickName
+                        avatarPic = data.avatarPic
                         isLogin = true
                     }
                     afterLogin()
                 }
             }
         )
+    },
+
+    getBookId() {
+        return bookId
     },
 
     getToken() {
@@ -57,9 +61,11 @@ App({
             return nickname
         }
     },
+
     setAvatarPic(uri) {
         avatarPic = uri
     },
+
     getAvatarPic() {
         if (!isLogin) {
             return "https://api.multiavatar.com/cicool.svg"
