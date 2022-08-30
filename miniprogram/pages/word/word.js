@@ -20,7 +20,6 @@ function getData(type) {
 
 Page({
     onLoad: async function (options) {
-        console.log()
         const wordData = await getData(options.type);
         console.log(
             wordData

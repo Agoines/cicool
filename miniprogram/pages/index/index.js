@@ -2,10 +2,17 @@ const statisticApi = require("../../utils/statisticApi.js");
 
 const app = getApp();
 
+let isLoading = true
+const openPage = async (pageName) => {
+    if (!isLoading) {
+        await wx.navigateTo({
+            url: pageName
+        })
+    }
+}
+
 async function openWord(type) {
-    await wx.navigateTo({
-        url: "../word/word?type=" + type
-    })
+    await openPage("../word/word?type=" + type)
 }
 
 Page({
@@ -32,6 +39,7 @@ Page({
             $this.setData({
                 learnData: allLearnData.master
             })
+            isLoading = false
         }
         app.afterLogin(
             thing
@@ -45,14 +53,14 @@ Page({
     },
 
     async openSetting() {
-        await wx.navigateTo({
-            url: "../setting/setting"
-        })
+        await openPage(
+            "../setting/setting"
+        )
     },
     async openSearch() {
-        await wx.navigateTo({
-            url: "../search/search"
-        })
+        await openPage(
+            "../search/search"
+        )
     },
 
     async openReview() {
