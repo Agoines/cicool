@@ -7,12 +7,16 @@
         <text class="nickname" bind:tap="onChooseNickname">{{nickname}}</text>
         <image src="../../src/search.svg" class="search-icon" bind:tap="openSearch"></image>
     </view>
-    <view class="container">
-        <view class="learned-text">已经掌握了</view>
-        <view class="num">{{learnData}}</view>
-        <view class="learned-text">词</view>
-    </view>
+    <view>
+        <view class="container">
+            <text class="learned-text" bind:tap="openData">已经掌握了</text>
+            <text class="num" bind:tap="openData">{{learnData}}</text>
+            <text class="learned-text" bind:tap="openData">词</text>
+        </view>
+        <text class="book-name" style="color: {{bookTextColor}}; background: {{bookBackgroundColor}};"
+              bind:tap="openSetting">{{bookName}}</text>
 
+    </view>
     <view class="footer_container">
         <view class="review-background" bind:tap="openReview">
             <text class="review-text">复习</text>

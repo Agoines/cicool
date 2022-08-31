@@ -21,7 +21,10 @@ Page({
         avatarPic: app.getAvatarPic(),
         learnData: 0,
         nicknameDialog: false,
-        nicknameInput: ''
+        nicknameInput: '',
+        bookName: '还未选择图书',
+        bookTextColor: '#263544',
+        bookBackgroundColor: '#26354433'
     },
 
     onLoad: async function () {
@@ -38,6 +41,19 @@ Page({
                 app.getToken()
             )
 
+            if (app.getBookId() !== -1) {
+                let bookData = await statisticApi.getSingleWBData(
+                    app.getToken(),
+                    app.getUserId(),
+                    app.getBookId()
+                )
+
+                $this.setData({
+                    bookName: '词书：' + bookData.book.name,
+                    bookTextColor: bookData.book.color,
+                    bookBackgroundColor: bookData.book.color + '33'
+                })
+            }
             $this.setData({
                 learnData: allLearnData.master
             })
@@ -81,6 +97,12 @@ Page({
             app.getToken(),
             app.getUserId(),
             this.data.nicknameInput
+        )
+    },
+
+    async openData() {
+        await openPage(
+            "../data/data"
         )
     },
 

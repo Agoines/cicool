@@ -43,6 +43,5 @@ Page({
                 data: '单词：' + event.detail.item.text + '\n翻译' + event.detail.item.translation
             }
         )
-
     },
 });

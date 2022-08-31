@@ -49,7 +49,7 @@ const getAllWBData = (userId, token) => {
     })
 }
 
-const getSingleWBData = (userId, bookId, token) => {
+const getSingleWBData = (token, userId, bookId) => {
     return new Promise((resolve, reject) => {
         wx.request({
             method: "POST",
