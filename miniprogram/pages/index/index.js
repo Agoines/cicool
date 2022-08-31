@@ -1,5 +1,5 @@
 const statisticApi = require("../../utils/statisticApi.js");
-
+const userApi = require("../../utils/userApi.js");
 const app = getApp();
 
 let isLoading = true
@@ -19,7 +19,9 @@ Page({
     data: {
         nickname: app.getNickname(),
         avatarPic: app.getAvatarPic(),
-        learnData: 0
+        learnData: 0,
+        nicknameDialog: false,
+        nicknameInput: ''
     },
 
     onLoad: async function () {
@@ -45,11 +47,41 @@ Page({
             thing
         )
     },
+    onChooseNickname() {
+        this.setData({
+            nicknameDialog: true
+        })
+    },
 
-    onChooseAvatar(e) {
+    async onChooseAvatar(e) {
         this.setData({
             avatarPic: e.detail.avatarUrl,
         })
+        await userApi.changeUserAvatarPic(
+            app.getToken(),
+            app.getUserId(),
+            e.detail.avatarUrl
+        )
+    },
+
+    nickNameDialogCancel() {
+        this.setData({
+            nicknameDialog: false
+        })
+    },
+
+    async nickNameDialogOk() {
+        this.setData({
+                nickname: this.data.nicknameInput,
+                nicknameDialog: false
+            }
+        )
+
+        await userApi.changeUserNickname(
+            app.getToken(),
+            app.getUserId(),
+            this.data.nicknameInput
+        )
     },
 
     async openSetting() {

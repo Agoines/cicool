@@ -44,7 +44,7 @@ const getUserInfo = (userId, token) => {
     })
 }
 
-const changeUserInfo = (userId, nickName, token) => {
+const changeUserNickname = (token, userId, nickName) => {
     return new Promise((resolve, reject) => {
         wx.request({
             method: "POST",
@@ -52,7 +52,32 @@ const changeUserInfo = (userId, nickName, token) => {
 
             data: {
                 userId: userId,
-                nickName: nickName
+                nickName: nickName,
+            },
+
+            header: {
+                Cookie: token
+            },
+
+            success: (res) => {
+                resolve(res.data)
+            },
+            fail: (err) => {
+                reject(err)
+            }
+        })
+    })
+}
+
+const changeUserAvatarPic = (token, userId, avatarPic) => {
+    return new Promise((resolve, reject) => {
+        wx.request({
+            method: "POST",
+            url: domain + '/user/changeUserInfo',
+
+            data: {
+                userId: userId,
+                avatarPic: avatarPic
             },
 
             header: {
@@ -92,10 +117,6 @@ const uploadAvatar = (userId, filePath, token) => {
     })
 }
 
-const getAvatar = (userId, token) => {
-    //
-}
-
 const changeWordBook = (userId, bookId, token) => {
     return new Promise((resolve, reject) => {
         wx.request({
@@ -124,8 +145,8 @@ const changeWordBook = (userId, bookId, token) => {
 module.exports = {
     login: login,
     getUserInfo: getUserInfo,
-    changeUserInfo: changeUserInfo,
+    changeUserNickname: changeUserNickname,
+    changeUserAvatarPic: changeUserAvatarPic,
     uploadAvatar: uploadAvatar,
-    getAvatar: getAvatar,
     changeWordBook: changeWordBook
 }

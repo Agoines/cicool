@@ -4,7 +4,7 @@
             <image class="avatar" src="{{avatarPic}}"></image>
         </button>
 
-        <text class="nickname" bind:tap="openSetting">{{nickname}}</text>
+        <text class="nickname" bind:tap="onChooseNickname">{{nickname}}</text>
         <image src="../../src/search.svg" class="search-icon" bind:tap="openSearch"></image>
     </view>
     <view class="container">
@@ -22,9 +22,13 @@
         </view>
     </view>
 </view>
-<mp-dialog title="是否选择该图片为头像" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
-
-    <view>
-        <image src="{{path}}" class="avatar-dialog" mode="aspectFill"></image>
+<mp-halfScreenDialog show="{{nicknameDialog}}" closabled="{{false}}">
+    <view slot="title">测试标题A</view>
+    <view slot="desc">
+        <input type="nickname" class="weui-input" placeholder="请输入昵称" model:value="{{nicknameInput}}"/>
     </view>
-</mp-dialog>
+    <view slot="footer">
+        <button type="default" class="weui-btn" bind:tap="nickNameDialogCancel">取消</button>
+        <button type="primary" class="weui-btn" bind:tap="nickNameDialogOk">确定</button>
+    </view>
+</mp-halfScreenDialog>
