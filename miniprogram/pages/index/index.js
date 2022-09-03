@@ -30,37 +30,36 @@ Page({
     onLoad: async function () {
         await wx.showNavigationBarLoading();
         let $this = this
-        let thing = async function () {
-            $this.setData({
-                nickname: app.getNickname(),
-                avatarPic: app.getAvatarPic(),
-            })
-            await wx.hideNavigationBarLoading();
-            let allLearnData = await statisticApi.getAllLearnData(
-                app.getUserId(),
-                app.getToken()
-            )
-
-            if (app.getBookId() !== -1) {
-                let bookData = await statisticApi.getSingleWBData(
-                    app.getToken(),
+        app.afterLogin(
+            async function () {
+                $this.setData({
+                    nickname: app.getNickname(),
+                    avatarPic: app.getAvatarPic(),
+                })
+                await wx.hideNavigationBarLoading();
+                let allLearnData = await statisticApi.getAllLearnData(
                     app.getUserId(),
-                    app.getBookId()
+                    app.getToken()
                 )
 
+                if (app.getBookId() !== -1) {
+                    let bookData = await statisticApi.getSingleWBData(
+                        app.getToken(),
+                        app.getUserId(),
+                        app.getBookId()
+                    )
+
+                    $this.setData({
+                        bookName: '词书：' + bookData.book.name,
+                        bookTextColor: bookData.book.color,
+                        bookBackgroundColor: bookData.book.color + '33'
+                    })
+                }
                 $this.setData({
-                    bookName: '词书：' + bookData.book.name,
-                    bookTextColor: bookData.book.color,
-                    bookBackgroundColor: bookData.book.color + '33'
+                    learnData: allLearnData.master
                 })
+                isLoading = false
             }
-            $this.setData({
-                learnData: allLearnData.master
-            })
-            isLoading = false
-        }
-        app.afterLogin(
-            thing
         )
     },
     onChooseNickname() {

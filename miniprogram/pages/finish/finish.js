@@ -7,5 +7,12 @@ Page({
         this.setData({
             imageUri: imagePath
         })
+    },
+
+    onUnload() {
+        let pages = getCurrentPages().length - 1;
+        wx.navigateBack({
+            delta: pages
+        })
     }
 });

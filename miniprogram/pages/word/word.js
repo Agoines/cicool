@@ -1,5 +1,7 @@
 const wordApi = require("../../utils/wordApi.js");
 const app = getApp();
+let wordData;
+let tempList = ["", "", "", ""]
 
 function getData(type) {
     switch (type) {
@@ -18,18 +20,63 @@ function getData(type) {
     }
 }
 
+function getWord($this, wordData) {
+    $this.setData({
+            word: wordData.wordList[$this.data.temp].word,
+            phonetic: wordData.wordList[$this.data.temp].phonetic
+        }
+    )
+    console.log($this.data.word)
+    let translation = wordData.wordList[$this.data.temp].translation
+    // 生成零到四的随机数
+    let right = Math.floor(Math.random() * 4)
+    tempList[right] = translation
+    for (let i = 0; i < 4;) {
+        if (i === right) {
+            i++;
+            continue;
+        }
+        const sampleList = wordData.wordList[$this.data.temp].sampleList
+        let x = sampleList[Math.floor(Math.random() * sampleList.length)].translation
+        if (tempList.indexOf(x) === -1) {
+            tempList[i] = x
+            i++;
+        }
+    }
+    console.log(tempList)
+
+    $this.setData({
+        wordTranslation: tempList
+    })
+}
+
 Page({
-    onLoad: async function (options) {
-        const wordData = await getData(options.type);
-        console.log(
-            wordData
-        )
-        // 请求，然后获取正确字符串，
-        let height = wx.getSystemInfoSync().windowHeight;
-        let width = wx.getSystemInfoSync().windowWidth;
-        const imagePath = "https://source.unsplash.com/random/" + width + "x" + height;
-        this.setData({
-            imageUri: imagePath
-        })
+    data: {
+        word: "",
+        phonetic: "",
+        wordTranslation: ["", "", "", ""],
+        temp: 0
     },
+    onLoad: async function (options) {
+        wordData = await getData(options.type);
+        console.log(wordData)
+        getWord(this, wordData);
+    },
+    refresh() {
+        let temp = this.data.temp + 1
+        if (temp < wordData.wordList.length) {
+            this.setData({
+                temp: temp
+            })
+            getWord(this, wordData)
+            return
+        }
+
+
+        wx.navigateTo({
+            url: '../finish/finish',
+        })
+
+
+    }
 });

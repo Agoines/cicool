@@ -5,34 +5,27 @@
     width: 100%;
 }
 
-.title {
-    position: absolute;
-    width: max-content;
-    height: 32px;
-    left: 20px;
-    top: 86px;
+.title_layout {
+    margin-top: 86px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
 
-    font-family: system-ui;
+.title {
+    width: 100%;
     font-style: normal;
     font-weight: 600;
-    font-size: 24px;
-    line-height: 32px;
-    /* identical to box height */
-    color: #FFFFFF;
+    font-size: 48px;
+    display: inline-block;
+    color: #000000;
 }
 
 .sub_title {
-    position: absolute;
-    width: max-content;
-    height: 21px;
-    left: 20px;
-    top: 125px;
+    width: 100%;
 
-    font-family: system-ui;
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 21px;
-
-    color: #FFFFFF;
+    font-size: 20px;
+    display: inline-block;
+    color: #000000;
 }
