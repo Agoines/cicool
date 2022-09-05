@@ -1,12 +1,17 @@
-<view class="page">
+<view class="page cover-box">
     <view class="title_layout">
         <text class="title">{{word}}</text>
         <text class="sub_title">{{phonetic}}</text>
     </view>
 
-    <view style="display: block;text-align: center;margin-top: 140px;">
+    <view style="display: block;text-align: center;margin-top: 80px;">
         <view wx:key="index" wx:for="{{wordTranslation}}">
-            <view class="button" bind:tap="refresh">{{item}}</view>
+
+            <view class="button" bind:tap="refresh">
+                <mp-loading wx:if="{{item===''}}" ext-class="loading_style" type="dot-gray"
+                            animated="{{animated}}"></mp-loading>
+                <text wx:else>{{item}}</text>
+            </view>
         </view>
     </view>
 </view>
