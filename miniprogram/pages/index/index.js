@@ -1,7 +1,6 @@
 const statisticApi = require("../../utils/statisticApi.js");
 const userApi = require("../../utils/userApi.js");
 const app = getApp();
-
 let isLoading = true
 const openPage = async (pageName) => {
     if (!isLoading) {
