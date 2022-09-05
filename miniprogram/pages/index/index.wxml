@@ -1,4 +1,5 @@
 <view class="page cover-box">
+    <mp-toptips msg="{{message}}" type="{{type}}" show="{{showTopTips}}" delay="{{3000}}"></mp-toptips>
     <view class="header_container">
         <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
             <image class="avatar" src="{{avatarPic}}"></image>
@@ -8,7 +9,8 @@
         <image src="../../src/search.svg" class="search-icon" bind:tap="openSearch"></image>
     </view>
     <view>
-        <view class="container">
+
+    <view class="container">
             <text class="learned-text" bind:tap="openData">已经掌握了</text>
             <text class="num" bind:tap="openData">{{learnData}}</text>
             <text class="learned-text" bind:tap="openData">词</text>

@@ -2,20 +2,29 @@ const statisticApi = require("../../utils/statisticApi.js");
 const userApi = require("../../utils/userApi.js");
 const app = getApp();
 let isLoading = true
-const openPage = async (pageName) => {
+const openPage = async ($this, pageName) => {
     if (!isLoading) {
         await wx.navigateTo({
             url: pageName
         })
+    } else {
+        $this.setData({
+                showTopTips: true
+            }
+        )
     }
 }
 
-async function openWord(type) {
-    await openPage("../word/word?type=" + type)
+async function openWord($this, type) {
+    await openPage($this, "../word/word?type=" + type)
 }
 
 Page({
     data: {
+        showTopTips: false,
+        message: '别点这么快，数据还没加载好呢',
+        type: 'info',
+
         nickname: app.getNickname(),
         avatarPic: app.getAvatarPic(),
         learnData: 0,
@@ -99,28 +108,28 @@ Page({
     },
 
     async openData() {
-        await openPage(
+        await openPage(this,
             "../data/data"
         )
     },
 
     async openSetting() {
-        await openPage(
+        await openPage(this,
             "../setting/setting"
         )
     },
     async openSearch() {
-        await openPage(
+        await openPage(this,
             "../search/search"
         )
     },
 
     async openReview() {
-        await openWord('review')
+        await openWord(this, 'review')
     },
 
     async openLearn() {
-        await openWord('learn')
+        await openWord(this, 'learn')
     }
 
 })

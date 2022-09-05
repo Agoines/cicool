@@ -11,8 +11,40 @@
     text-align: center;
     padding: 20px 24px;
     margin: 10px 20px;
-    background: #FFFFFF;
+
     border-radius: 6px;
     box-shadow: 0 10px 30px rgba(38, 51, 77, 0.03);
     min-height: 25px;
+}
+
+.fab {
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    padding: 16px 64px;
+
+    background: #202124;
+    box-shadow: 0 10px 30px #20212433;
+    border-radius: 120px;
+}
+
+.fab_text {
+    color: #FFFFFF;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.footer_container {
+    /* 底部 */
+    position: fixed;
+    bottom: 0;
+
+    width: 100%;
+    height: 54px;
+
+    display: table-cell;
+    margin-bottom: 54px;
+    text-align: center;
 }

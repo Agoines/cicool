@@ -28,7 +28,7 @@ function getWord($this, wordData) {
             phonetic: wordData.wordList[$this.data.temp].phonetic
         }
     )
-    console.log($this.data.word)
+
     let translation = wordData.wordList[$this.data.temp].translation
     // 生成零到四的随机数
     right = Math.floor(Math.random() * 4)
@@ -46,6 +46,7 @@ function getWord($this, wordData) {
             i++;
         }
     }
+
     $this.setData({
         wordTranslation: tempList
     })
@@ -60,10 +61,14 @@ Page({
         temp: 0,
         isListEmpty: false,
         dialogButton: [{text: '确定'}],
+        afterChange: false,
+        wordBg: [{textColor: "#202124", background: "#FFFFFF"},
+            {textColor: "#202124", background: "#FFFFFF"},
+            {textColor: "#202124", background: "#FFFFFF"},
+            {textColor: "#202124", background: "#FFFFFF"}],
     },
     onLoad: async function (options) {
         wordData = await getData(options.type);
-        console.log(wordData)
         if (options.type === 'review' && wordData.wordList.length === 0) {
             this.setData({
                 isListEmpty: true
@@ -71,35 +76,48 @@ Page({
 
             return
         }
-        console.log(wordData)
         getWord(this, wordData);
     },
 
 
     refresh(event) {
-        if (isLoading) return;
+        if (isLoading || this.data.afterChange) return;
         console.log(event.currentTarget.dataset.viewId)
-        if (event.currentTarget.dataset.viewId === right) {
-            console.log("正确的，中肯的")
+        let temp = this.data.wordBg
+        if (event.currentTarget.dataset.viewId !== right) {
+            temp[event.currentTarget.dataset.viewId].background = "#FF4D3C"
+            temp[event.currentTarget.dataset.viewId].textColor = "#FFFFFF"
         }
+        temp[right].background = "#07C160"
+        temp[right].textColor = "#FFFFFF"
+        this.setData({
+                afterChange: true,
+                wordBg: temp
+            }
+        )
 
 
+    },
+
+    next() {
         let temp = this.data.temp + 1
         if (temp < wordData.wordList.length) {
             this.setData({
-                temp: temp
+                temp: temp,
+                afterChange: false,
+                wordBg: [{textColor: "#202124", background: "#FFFFFF"},
+                    {textColor: "#202124", background: "#FFFFFF"},
+                    {textColor: "#202124", background: "#FFFFFF"},
+                    {textColor: "#202124", background: "#FFFFFF"}],
             })
             getWord(this, wordData)
             return
         }
-
-
         wx.navigateTo({
             url: '../finish/finish',
         })
-
-
     },
+
     back() {
         wx.navigateBack()
     }
