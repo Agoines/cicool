@@ -6,8 +6,7 @@
 
     <view style="display: block;text-align: center;margin-top: 80px;">
         <view wx:key="index" wx:for="{{wordTranslation}}">
-
-            <view class="button" bind:tap="refresh">
+            <view data-view-id="{{index}}" class="button" bind:tap="refresh">
                 <mp-loading wx:if="{{item===''}}" ext-class="loading_style" type="dot-gray"
                             animated="{{animated}}"></mp-loading>
                 <text wx:else>{{item}}</text>

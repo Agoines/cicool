@@ -1,6 +1,7 @@
 const wordApi = require("../../utils/wordApi.js");
 const app = getApp();
 let wordData;
+let right;
 let tempList = ["", "", "", ""]
 let isLoading = true
 
@@ -30,7 +31,7 @@ function getWord($this, wordData) {
     console.log($this.data.word)
     let translation = wordData.wordList[$this.data.temp].translation
     // 生成零到四的随机数
-    let right = Math.floor(Math.random() * 4)
+    right = Math.floor(Math.random() * 4)
     tempList[right] = translation
     for (let i = 0; i < 4;) {
         if (i === right) {
@@ -75,8 +76,14 @@ Page({
     },
 
 
-    refresh() {
+    refresh(event) {
         if (isLoading) return;
+        console.log(event.currentTarget.dataset.viewId)
+        if (event.currentTarget.dataset.viewId === right) {
+            console.log("正确的，中肯的")
+        }
+
+
         let temp = this.data.temp + 1
         if (temp < wordData.wordList.length) {
             this.setData({

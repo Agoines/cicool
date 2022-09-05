@@ -7,6 +7,8 @@
     padding: 0 20px 10px 20px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .avatar-wrapper {
@@ -26,18 +28,21 @@
 
 .nickname {
     flex: 1;
-    line-height: 40px;
-    margin: 0 20px 0 10px;
+    margin: 0 20px 0 20px;
     font-style: normal;
     font-weight: 500;
-    color: #77818A;
+    color: #4D5E80;
     font-size: 18px;
 }
 
 .search-icon {
-    width: 28px;
-    height: 28px;
+    border-radius: 28px;
+    background-color: #FFFFFF;
+    padding: 16px;
+    width: 24px;
+    height: 24px;
     margin: 8px 40px 8px 10px;
+    box-shadow: 0 2px 5px rgba(38, 51, 77, 0.03);
 }
 
 .page {
