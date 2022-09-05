@@ -1,5 +1,5 @@
 <view class="page">
-    <view class="cover-box">
+    <view class="cover-box" style="text-align: center;">
         <image src="../../src/partying.png" class="emoji" mode="widthFix"></image>
         <text class="title">本次单词复习</text>
         <text class="sub_title">一共学习 24 个单词</text>

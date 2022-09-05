@@ -2,6 +2,7 @@ const wordApi = require("../../utils/wordApi.js");
 const app = getApp();
 let wordData;
 let tempList = ["", "", "", ""]
+let isLoading = true
 
 function getData(type) {
     switch (type) {
@@ -36,6 +37,7 @@ function getWord($this, wordData) {
             i++;
             continue;
         }
+
         const sampleList = wordData.wordList[$this.data.temp].sampleList
         let x = sampleList[Math.floor(Math.random() * sampleList.length)].translation
         if (tempList.indexOf(x) === -1) {
@@ -43,11 +45,10 @@ function getWord($this, wordData) {
             i++;
         }
     }
-    console.log(tempList)
-
     $this.setData({
         wordTranslation: tempList
     })
+    isLoading = false
 }
 
 Page({
@@ -55,14 +56,27 @@ Page({
         word: "",
         phonetic: "",
         wordTranslation: ["", "", "", ""],
-        temp: 0
+        temp: 0,
+        isListEmpty: false,
+        dialogButton: [{text: '确定'}],
     },
     onLoad: async function (options) {
         wordData = await getData(options.type);
         console.log(wordData)
+        if (options.type === 'review' && wordData.wordList.length === 0) {
+            this.setData({
+                isListEmpty: true
+            })
+
+            return
+        }
+        console.log(wordData)
         getWord(this, wordData);
     },
+
+
     refresh() {
+        if (isLoading) return;
         let temp = this.data.temp + 1
         if (temp < wordData.wordList.length) {
             this.setData({
@@ -78,5 +92,8 @@ Page({
         })
 
 
+    },
+    back() {
+        wx.navigateBack()
     }
 });

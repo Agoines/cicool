@@ -14,4 +14,9 @@
             </view>
         </view>
     </view>
+
+    <mp-dialog title="提示" show="{{isListEmpty}}" bindbuttontap="back" buttons="{{dialogButton}}">
+        <view>你还没有学习任何单词，请学习单词后再来进行复习</view>
+    </mp-dialog>
 </view>
+
