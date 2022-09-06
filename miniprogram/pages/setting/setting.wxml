@@ -1,4 +1,5 @@
 <view class="page">
+    <mp-toptips msg="{{message}}" type="{{type}}" show="{{showTopTips}}" delay="{{2000}}"></mp-toptips>
     <view class="page-section-title">单词书</view>
     <scroll-view style="height:300rpx;background:#00000000;width:100%;"
                  scroll-x="true">

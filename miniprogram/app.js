@@ -60,10 +60,6 @@ App({
         }
     },
 
-    setAvatarPic(uri) {
-        avatarPic = uri
-    },
-
     getAvatarPic() {
         if (!isLogin) {
             return "https://api.multiavatar.com/cicool.svg"

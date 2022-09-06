@@ -1,5 +1,5 @@
 <view class="page cover-box">
-    <mp-toptips msg="{{message}}" type="{{type}}" show="{{showTopTips}}" delay="{{3000}}"></mp-toptips>
+    <mp-toptips msg="别点这么快，数据还没加载好呢" type="error" show="{{showTopTips}}" delay="{{2000}}"></mp-toptips>
     <view class="header_container">
         <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
             <image class="avatar" src="{{avatarPic}}"></image>

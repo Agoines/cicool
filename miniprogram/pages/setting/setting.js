@@ -1,63 +1,60 @@
 const app = getApp();
-
-let books = [];
-
+const statisticApi = require("../../utils/statisticApi.js");
+const userApi = require("../../utils/userApi.js");
 Page({
     data: {
         pronunciations: ['英式', '美式'],
         pronunciationIndex: 0,
         bookId: wx.getStorageSync('bookId'),
-        books: []
+        books: [],
+
+        showTopTips: false,
+        message: '',
+        type: '',
     },
 
-    onLoad: function () {
+    async onLoad() {
+        const allWBData = await statisticApi.getAllWBData(
+            app.getUserId(),
+            app.getToken()
+        )
+        this.setData({
+            booksData: allWBData.books
+        })
+    },
 
-        wx.request({
-            method: "POST",
-            url: app.globalData.domain + '/statistic/getAllWBData', data: {
-                "userId": wx.getStorageSync('userId')
-            },
-            header: {
-                'content-type': 'application/json',
-                'cookie': app.getToken()
-            },
-            // 调用成功口
-            success: (r) => {
-                console.log(r.data.books)
-                books = r.data.books
-
+    async handleTap(e) {
+        try {
+            await userApi.changeWordBook(
+                app.getUserId(),
+                e.currentTarget.dataset.text,
+                app.getToken()
+            ).then(
                 this.setData({
-                    booksData: r.data.books
-                })
-            }
-        })
-    },
+                        message: '修改成功',
+                        type: 'success',
+                        showTopTips: true
+                    }
+                ),
+            )
 
-    handleTap(e) {
+            let pages = getCurrentPages();
+            let item = e.currentTarget.dataset.text - 1;
+            let prevPage = pages[pages.length - 2];
+            prevPage.setData({
+                bookName: this.data.booksData[item].name,
+                bookTextColor: this.data.booksData[item].color,
+                bookBackgroundColor: this.data.booksData[item].color + '33'
+            })
+        } catch (err) {
+            this.setData({
+                    message: '修改失败 ' + err,
+                    type: 'error',
+                    showTopTips: true
+                }
+            )
+        }
 
-        wx.request({
-            method: "POST",
-            url: app.globalData.domain + '/user/changeWordBook', data: {
-                "userId": wx.getStorageSync('userId'),
-                "bookId": e.currentTarget.dataset.text
-            },
-            header: {
-                'content-type': 'application/json',
-                'cookie': app.getToken()
-            },
-            // 调用成功口
-            success: () => {
-                wx.showToast({
-                    title: "修改成功"
-                })
-                wx.setStorageSync('bookId', e.currentTarget.dataset.text)
-            },
-            fail: () => {
-                wx.showToast({
-                    title: "修改失败"
-                })
-            },
-        })
 
     },
 

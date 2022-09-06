@@ -22,9 +22,6 @@ async function openWord($this, type) {
 Page({
     data: {
         showTopTips: false,
-        message: '别点这么快，数据还没加载好呢',
-        type: 'info',
-
         nickname: app.getNickname(),
         avatarPic: app.getAvatarPic(),
         learnData: 0,
@@ -70,6 +67,7 @@ Page({
             }
         )
     },
+
     onChooseNickname() {
         this.setData({
             nicknameDialog: true
