@@ -82,13 +82,21 @@ Page({
 
     refresh(event) {
         if (isLoading || this.data.afterChange) return;
-        console.log(event.currentTarget.dataset.viewId)
+
         let temp = this.data.wordBg
         if (event.currentTarget.dataset.viewId !== right) {
             temp[event.currentTarget.dataset.viewId].background = "#FF4D3C"
             temp[event.currentTarget.dataset.viewId].textColor = "#FFFFFF"
             wordData.wordList.push(wordData.wordList.shift());
         } else {
+            wordApi.addLearningRecord(
+                app.getUserId(),
+                [
+                    {
+                        wordId: wordData.wordList[0].wordId
+                    }],
+                app.getToken()
+            )
             wordData.wordList.shift();
         }
         temp[right].background = "#07C160"
