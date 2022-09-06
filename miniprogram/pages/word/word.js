@@ -24,12 +24,12 @@ function getData(type) {
 
 function getWord($this, wordData) {
     $this.setData({
-            word: wordData.wordList[$this.data.temp].word,
-            phonetic: wordData.wordList[$this.data.temp].phonetic
+            word: wordData.wordList[0].word,
+            phonetic: wordData.wordList[0].phonetic
         }
     )
 
-    let translation = wordData.wordList[$this.data.temp].translation
+    let translation = wordData.wordList[0].translation
     // 生成零到四的随机数
     right = Math.floor(Math.random() * 4)
     tempList[right] = translation
@@ -39,7 +39,7 @@ function getWord($this, wordData) {
             continue;
         }
 
-        const sampleList = wordData.wordList[$this.data.temp].sampleList
+        const sampleList = wordData.wordList[0].sampleList
         let x = sampleList[Math.floor(Math.random() * sampleList.length)].translation
         if (tempList.indexOf(x) === -1) {
             tempList[i] = x
@@ -87,6 +87,9 @@ Page({
         if (event.currentTarget.dataset.viewId !== right) {
             temp[event.currentTarget.dataset.viewId].background = "#FF4D3C"
             temp[event.currentTarget.dataset.viewId].textColor = "#FFFFFF"
+            wordData.wordList.push(wordData.wordList.shift());
+        } else {
+            wordData.wordList.shift();
         }
         temp[right].background = "#07C160"
         temp[right].textColor = "#FFFFFF"
@@ -95,15 +98,11 @@ Page({
                 wordBg: temp
             }
         )
-
-
     },
 
     next() {
-        let temp = this.data.temp + 1
-        if (temp < wordData.wordList.length) {
+        if (wordData.wordList.length > 0) {
             this.setData({
-                temp: temp,
                 afterChange: false,
                 wordBg: [{textColor: "#202124", background: "#FFFFFF"},
                     {textColor: "#202124", background: "#FFFFFF"},
