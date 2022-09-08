@@ -1,14 +1,22 @@
+const wordApi = require("../../utils/wordApi");
 Page({
     data: {},
     onLoad: function (options) {
+        let wordType
+        switch (options.wordType) {
+            case 'learn':
+                wordType = '学习'
+                break
+            case 'review':
+                wordType = '复习'
+                break
+        }
+        console.log(options.wordNum)
         this.setData({
-            wordType: options.wordType,
+            wordType: wordType,
             wordNum: options.wordNum
         })
 
-        this.setData({
-            imageUri: imagePath
-        })
     },
 
     onUnload() {

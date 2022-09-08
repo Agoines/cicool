@@ -9,9 +9,8 @@ const openPage = async ($this, pageName) => {
         })
     } else {
         $this.setData({
-                showTopTips: true
-            }
-        )
+            showTopTips: true
+        })
     }
 }
 
@@ -33,39 +32,53 @@ Page({
     },
 
     onLoad: async function () {
+
         await wx.showNavigationBarLoading();
         let $this = this
-        app.afterLogin(
-            async function () {
-                $this.setData({
-                    nickname: app.getNickname(),
-                    avatarPic: app.getAvatarPic(),
-                })
-                await wx.hideNavigationBarLoading();
-                let allLearnData = await statisticApi.getAllLearnData(
+        app.afterLogin(async function () {
+            $this.setData({
+                nickname: app.getNickname(),
+                avatarPic: app.getAvatarPic(),
+            })
+
+            let allLearnData = await statisticApi.getAllLearnData(
+                app.getUserId(),
+                app.getToken()
+            )
+
+            if (app.getBookId() !== -1) {
+                let bookData = await statisticApi.getSingleWBData(
+                    app.getToken(),
                     app.getUserId(),
-                    app.getToken()
+                    app.getBookId()
                 )
 
-                if (app.getBookId() !== -1) {
-                    let bookData = await statisticApi.getSingleWBData(
-                        app.getToken(),
-                        app.getUserId(),
-                        app.getBookId()
-                    )
-
-                    $this.setData({
-                        bookName: '词书：' + bookData.book.name,
-                        bookTextColor: bookData.book.color,
-                        bookBackgroundColor: bookData.book.color + '33'
-                    })
-                }
                 $this.setData({
-                    learnData: allLearnData.master
+                    bookName: '词书：' + bookData.book.name,
+                    bookTextColor: bookData.book.color,
+                    bookBackgroundColor: bookData.book.color + '33'
                 })
-                isLoading = false
             }
-        )
+            $this.setData({
+                learnData: allLearnData.master
+            })
+
+            let now = new Date().getTime();
+            let date = new Date(now - 7 * 24 * 60 * 60 * 1000).getTime();
+            const startDate = Math.floor(date / 1000);
+            const endDate = Math.floor(now / 1000);
+            const dailySumByDate = await statisticApi.getDailySumByDate(
+                app.getUserId(),
+                app.getToken(),
+                startDate,
+                endDate
+            )
+
+            console.log(dailySumByDate)
+
+            isLoading = false
+            await wx.hideNavigationBarLoading();
+        })
     },
 
     onChooseNickname() {
@@ -78,11 +91,7 @@ Page({
         this.setData({
             avatarPic: e.detail.avatarUrl,
         })
-        await userApi.changeUserAvatarPic(
-            app.getToken(),
-            app.getUserId(),
-            e.detail.avatarUrl
-        )
+        await userApi.changeUserAvatarPic(app.getToken(), app.getUserId(), e.detail.avatarUrl)
     },
 
     nickNameDialogCancel() {
@@ -93,10 +102,9 @@ Page({
 
     async nickNameDialogOk() {
         this.setData({
-                nickname: this.data.nicknameInput,
-                nicknameDialog: false
-            }
-        )
+            nickname: this.data.nicknameInput,
+            nicknameDialog: false
+        })
 
         await userApi.changeUserNickname(
             app.getToken(),
@@ -106,20 +114,15 @@ Page({
     },
 
     async openData() {
-        await openPage(this,
-            "../data/data"
-        )
+        await openPage(this, "../data/data")
     },
 
     async openSetting() {
-        await openPage(this,
-            "../setting/setting"
-        )
+        await openPage(this, "../setting/setting")
     },
+
     async openSearch() {
-        await openPage(this,
-            "../search/search"
-        )
+        await openPage(this, "../search/search")
     },
 
     async openReview() {

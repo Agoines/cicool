@@ -125,7 +125,7 @@ Page({
             return
         }
         wx.navigateTo({
-            url: '../finish/finish?wordType=' + wordType + '?wordNum' + wordNum,
+            url: '../finish/finish?wordType=' + wordType + '&&wordNum=' + wordNum,
         })
     },
 
