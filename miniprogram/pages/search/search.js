@@ -27,9 +27,10 @@ Page({
             // 转换为对应数组
             for (let index = 0; index < directSearch.length; index++) {
                 let item = {}
-                item.text = directSearch[index].word + '\n' + directSearch[index].translation;
-                item.word = directSearch[index].word;
-                item.translation = directSearch[index].translation;
+                item.text = directSearch[index].word + '\n' + directSearch[index].translation
+                item.word = directSearch[index].word
+                item.wordId = directSearch[index].wordId
+                item.translation = directSearch[index].translation
                 resolveList[index] = item
             }
             resolve(resolveList)
@@ -39,9 +40,9 @@ Page({
 
     selectResult: async function (event) {
         console.log(event)
-        await wx.setClipboardData({
-                data: '单词：' + event.detail.item.text + '\n翻译' + event.detail.item.translation
-            }
-        )
+        const wordId = event.detail.item.wordId
+        await wx.navigateTo({
+            url: 'wordDetail/wordDetail?wordId=' + wordId,
+        })
     },
 });

@@ -1,0 +1,16 @@
+<view class="page cover-box">
+    <view class="card">
+        <text class="card-title">{{word}}</text>
+        <text class="card-item">音标：{{phonetic}}</text>
+        <text class="card-item">定义：{{definition}}</text>
+        <text class="card-item">格式：{{exchange}}</text>
+    </view>
+
+    <view class="card">
+        <text class="card-title-sub">在以下单词书出现过</text>
+        <view class="card-book-list-item" wx:for="{{bookList}}">
+            <text class="card-item-sub">{{item.name}}</text>
+            <text class="card-item-sub2">{{item.description}}</text>
+        </view>
+    </view>
+</view>

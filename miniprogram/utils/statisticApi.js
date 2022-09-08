@@ -122,6 +122,33 @@ const getTodayLearnData = (userId, token) => {
     })
 }
 
+const getDailySumByDate = (userId, token, startDate, endDate) => {
+    return new Promise((resolve, reject) => {
+        wx.request({
+            method: "POST",
+            url: domain + '/statistic/getDailySumByDate',
+
+            data: {
+                userId: userId,
+                startDate: startDate,
+                endDate: endDate
+            },
+
+            header: {
+                Cookie: token
+            },
+
+            success: (res) => {
+                resolve(res.data)
+            },
+            fail: (err) => {
+                reject(err)
+            }
+        })
+    })
+}
+
+
 const getDailySum = (userId, size = 20, skip = 0, token) => {
     return new Promise((resolve, reject) => {
         wx.request({
@@ -418,6 +445,7 @@ module.exports = {
     getSingleWBData: getSingleWBData,
     getAllLearnData: getAllLearnData,
     getTodayLearnData: getTodayLearnData,
+    getDailySumByDate: getDailySumByDate,
     getDailySum: getDailySum,
     getNoteBookWord: getNoteBookWord,
     getBkLearnedWord: getBkLearnedWord,
