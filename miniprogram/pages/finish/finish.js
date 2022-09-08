@@ -1,9 +1,11 @@
 Page({
     data: {},
-    onLoad: function () {
-        let height = wx.getSystemInfoSync().windowHeight;
-        let width = wx.getSystemInfoSync().windowWidth;
-        const imagePath = "https://source.unsplash.com/random/" + width + "x" + height;
+    onLoad: function (options) {
+        this.setData({
+            wordType: options.wordType,
+            wordNum: options.wordNum
+        })
+
         this.setData({
             imageUri: imagePath
         })

@@ -4,8 +4,11 @@ let wordData;
 let right;
 let tempList = ["", "", "", ""]
 let isLoading = true
+let wordType;
+let wordNum = 0;
 
 function getData(type) {
+    wordType = type
     switch (type) {
         case 'learn':
             return wordApi.getLearningData(
@@ -91,12 +94,13 @@ Page({
         } else {
             wordApi.addLearningRecord(
                 app.getUserId(),
-                [
-                    {
-                        wordId: wordData.wordList[0].wordId
-                    }],
+                [{
+                    wordId: wordData.wordList[0].wordId
+                }],
                 app.getToken()
             )
+            // 单词数量++
+            wordNum++;
             wordData.wordList.shift();
         }
         temp[right].background = "#07C160"
@@ -121,7 +125,7 @@ Page({
             return
         }
         wx.navigateTo({
-            url: '../finish/finish',
+            url: '../finish/finish?wordType=' + wordType + '?wordNum' + wordNum,
         })
     },
 
