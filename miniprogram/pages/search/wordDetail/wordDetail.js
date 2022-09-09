@@ -5,7 +5,7 @@ Page({
         bookList: [],
         word: '',
         definition: '',
-        exchange: '',
+        exchange: [],
         phonetic: ''
     },
     async onLoad(options) {
@@ -15,12 +15,52 @@ Page({
             wordId,
             app.getToken()
         )
+        let exchange = wordDetail.word.exchange
+        if (exchange !== '') {
+            console.log(exchange)
+            exchange = exchange.split('/')
+            console.log(exchange)
+            for (let i = 0; i < exchange.length; i++) {
+                const exchangeName = exchange[i].substring(0, 1)
+                switch (exchangeName) {
+                    case 'p':
+                        exchange[i] = '过去式：' + exchange[i].substring(2)
+                        break
+                    case'd':
+                        exchange[i] = '过去分词：' + exchange[i].substring(2)
+                        break
+                    case 'i':
+                        exchange[i] = '现在分词：' + exchange[i].substring(2)
+                        break
+                    case'3':
+                        exchange[i] = '第三人称单数：' + exchange[i].substring(2)
+                        break
+                    case'r':
+                        exchange[i] = '比较级：' + exchange[i].substring(2)
+                        break
+                    case't':
+                        exchange[i] = '最高级：' + exchange[i].substring(2)
+                        break
+                    case's':
+                        exchange[i] = '复数形式：' + exchange[i].substring(2)
+                        break
+                    case'0':
+                        exchange[i] = '原型：' + exchange[i].substring(2)
+                        break
+                    case'1':
+                        exchange[i] = '原型的什么变体：' + exchange[i].substring(2)
+                        break
+                }
+            }
+        } else {
+            exchange = []
+        }
 
         this.setData({
             bookList: wordDetail.bookList,
             word: wordDetail.word.word,
             definition: wordDetail.word.definition,
-            exchange: wordDetail.word.exchange,
+            exchange: exchange,
             phonetic: wordDetail.word.phonetic
 
         })
