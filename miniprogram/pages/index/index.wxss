@@ -156,3 +156,10 @@
     width: 80px;
     height: 80px;
 }
+
+.u-canvas {
+    display: block;
+    margin: 100px auto;
+    width: 375px;
+    height: 212px;
+}

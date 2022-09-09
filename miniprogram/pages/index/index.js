@@ -1,5 +1,9 @@
 const statisticApi = require("../../utils/statisticApi.js");
 const userApi = require("../../utils/userApi.js");
+
+const FundCharts = require('../../utils/FundCharts.min.js');
+
+
 const app = getApp();
 let isLoading = true
 const openPage = async ($this, pageName) => {
@@ -75,10 +79,36 @@ Page({
             )
 
             console.log(dailySumByDate)
+            let xArr = [];
+            let learnSum = [], reviewSum = []
+            for (let sum in dailySumByDate.dailySum) {
+                xArr.push(new Date(now - (7 - sum) * 24 * 60 * 60 * 1000).toLocaleDateString())
+                learnSum.push(dailySumByDate.dailySum[sum].learn)
+                reviewSum.push(dailySumByDate.dailySum[sum].review)
+            }
+            const LineChart = FundCharts.line;
+
+            const line = new LineChart({
+                id: 'chart-line',
+                width: 375,
+                height: 212,
+                allGradient: true,    // 设置面积渐变
+                curveLine: true,
+                xaxis: xArr,
+
+                range: {min: 0, max: 15},
+                datas: [
+                    learnSum,
+                    reviewSum
+                ]
+            });
+
+            line.init();
 
             isLoading = false
             await wx.hideNavigationBarLoading();
         })
+
     },
 
     onChooseNickname() {

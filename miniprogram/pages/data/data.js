@@ -1,6 +1,5 @@
 Page({
     data: {},
-    onLoad: function (options) {
-
+    onLoad() {
     }
-});
+})
