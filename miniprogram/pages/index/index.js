@@ -95,8 +95,8 @@ Page({
                 allGradient: true,    // 设置面积渐变
                 curveLine: true,
                 xaxis: xArr,
-
-                range: {min: 0, max: 15},
+                yaxisfunc: data => data.toFixed(0),
+                range: {min: 0, max: Math.max(...learnSum, ...reviewSum) + 2},
                 datas: [
                     learnSum,
                     reviewSum
