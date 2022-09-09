@@ -3,12 +3,12 @@ const userApi = require("../../utils/userApi.js");
 
 const FundCharts = require('../../utils/FundCharts.min.js');
 
-
 const app = getApp();
+
 let isLoading = true
-const openPage = async ($this, pageName) => {
+const openPage = ($this, pageName) => {
     if (!isLoading) {
-        await wx.navigateTo({
+        wx.navigateTo({
             url: pageName
         })
     } else {
@@ -18,8 +18,8 @@ const openPage = async ($this, pageName) => {
     }
 }
 
-async function openWord($this, type) {
-    await openPage($this, "../word/word?type=" + type)
+function openWord($this, type) {
+    openPage($this, "../word/word?type=" + type)
 }
 
 Page({
@@ -105,8 +105,8 @@ Page({
 
             line.init();
 
-            isLoading = false
             await wx.hideNavigationBarLoading();
+            isLoading = false
         })
 
     },
@@ -143,24 +143,24 @@ Page({
         )
     },
 
-    async openData() {
-        await openPage(this, "../data/data")
+    openData() {
+        openPage(this, "../data/data")
     },
 
-    async openSetting() {
-        await openPage(this, "../setting/setting")
+    openSetting() {
+        openPage(this, "../setting/setting")
     },
 
-    async openSearch() {
-        await openPage(this, "../search/search")
+    openSearch() {
+        openPage(this, "../search/search")
     },
 
-    async openReview() {
-        await openWord(this, 'review')
+    openReview() {
+        openWord(this, 'review')
     },
 
-    async openLearn() {
-        await openWord(this, 'learn')
+    openLearn() {
+        openWord(this, 'learn')
     }
 
 })

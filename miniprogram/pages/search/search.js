@@ -41,7 +41,7 @@ Page({
     selectResult: async function (event) {
         console.log(event)
         const wordId = event.detail.item.wordId
-        await wx.navigateTo({
+        wx.navigateTo({
             url: 'wordDetail/wordDetail?wordId=' + wordId,
         })
     },

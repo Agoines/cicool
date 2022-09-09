@@ -1,9 +1,7 @@
 {
-  "onReachBottomDistance": 0,
-  "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "词酷",
   "usingComponents": {
     "mp-halfScreenDialog": "weui-miniprogram/half-screen-dialog/half-screen-dialog",
     "mp-toptips": "weui-miniprogram/toptips/toptips"
-  }
+  },
+  "onReachBottomDistance": 0
 }

@@ -8,7 +8,7 @@
         </view>
     </view>
 
-    <view class="card">
+    <view class="card" wx:if="{{bookList===[]}}">
         <text class="card-title-sub">在以下单词书出现过</text>
         <view wx:key="index" class="card-book-list-item" wx:for="{{bookList}}">
             <text class="card-item-sub">{{item.name}}</text>

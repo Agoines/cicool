@@ -34,7 +34,7 @@
     </view>
 </view>
 <mp-halfScreenDialog show="{{nicknameDialog}}" closabled="{{false}}">
-    <view slot="title">测试标题A</view>
+    <view slot="title">修改昵称</view>
     <view slot="desc">
         <input type="nickname" class="weui-input" placeholder="请输入昵称" model:value="{{nicknameInput}}"/>
     </view>

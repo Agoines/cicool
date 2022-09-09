@@ -10,10 +10,9 @@
   ],
   "entryPagePath": "pages/index/index",
   "window": {
-    "backgroundTextStyle": "light",
+    "navigationBarTextStyle": "black",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "词酷",
-    "navigationBarTextStyle": "black"
+    "navigationBarTitleText": "词酷"
   },
   "useExtendedLib": {
     "weui": true

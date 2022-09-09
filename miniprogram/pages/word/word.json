@@ -4,6 +4,5 @@
     "mp-dialog": "weui-miniprogram/dialog/dialog"
   },
   "onReachBottomDistance": 0,
-  "navigationStyle": "custom",
-  "navigationBarTextStyle": "white"
+  "navigationBarTitleText": "单词"
 }

@@ -4,7 +4,7 @@
         <text class="sub_title">{{phonetic}}</text>
     </view>
 
-    <view style="display: block;text-align: center;margin-top: 80px;">
+    <view style="display: block; text-align: center; margin-top: 20px;">
         <view wx:key="index" wx:for="{{wordTranslation}}">
             <view data-view-id="{{index}}" class="button" style="background:{{wordBg[index].background}}"
                   bind:tap="refresh">

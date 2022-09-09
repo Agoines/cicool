@@ -7,7 +7,7 @@
 }
 
 .title_layout {
-    margin-top: 86px;
+    margin-top: 20px;
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -15,8 +15,8 @@
 .title {
     width: 100%;
     font-style: normal;
-    font-weight: 600;
-    font-size: 48px;
+    font-weight: 800;
+    font-size: 36px;
     display: inline-block;
     color: #000000;
 }
@@ -26,7 +26,7 @@
 
     font-style: normal;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 16px;
     display: inline-block;
     color: #000000;
 }

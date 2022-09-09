@@ -71,6 +71,7 @@ Page({
             {textColor: "#202124", background: "#FFFFFF"}],
     },
     onLoad: async function (options) {
+        wordNum = 0;
         wordData = await getData(options.type);
         if (options.type === 'review' && wordData.wordList.length === 0) {
             this.setData({
