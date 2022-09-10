@@ -1,7 +1,7 @@
 <view class="page cover-box">
     <view class="title_layout">
         <text class="title">{{word}}</text>
-        <text class="sub_title">{{phonetic}}</text>
+        <text class="sub_title" bind:tap="playVoice">{{phonetic}}</text>
     </view>
 
     <view style="display: block; text-align: center; margin-top: 20px;">

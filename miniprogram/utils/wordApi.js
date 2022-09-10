@@ -187,7 +187,7 @@ const updateLearningRecord = (userId, record, token) => {
     return new Promise((resolve, reject) => {
         wx.request({
             method: "POST",
-            url: domain + '/word/',
+            url: domain + '/word/updateLearningRecord',
 
             data: {
                 userId: userId,
@@ -208,6 +208,22 @@ const updateLearningRecord = (userId, record, token) => {
     })
 }
 
+
+// 用于生成单词音频链接
+// 有道词典: http://dict.youdao.com/dictvoice?type={1:英式;2:美式}&audio={word}
+// gstatic oxford: https://ssl.gstatic.com/dictionary/static/sounds/oxford/{word}--_gb_1.mp3
+const getWordVoiceUrl = (word, source = 0, type = 2) => {
+    let globalData = getApp().globalData
+    if (globalData.isLogin && globalData.userInfo.settings.type) type = globalData.userInfo.settings.type
+    let url = ''
+    if (source === 0) {
+        url = `http://dict.youdao.com/dictvoice?type=${type}&audio=${word}`
+    } else if (source === 1) {
+        url = `https://ssl.gstatic.com/dictionary/static/sounds/oxford/${word}--_gb_1.mp3`
+    }
+    return url
+}
+
 module.exports = {
     getSearchResult: getSearchResult,
     getWordDetail: getWordDetail,
@@ -217,5 +233,6 @@ module.exports = {
     toggleAddToNB: toggleAddToNB,
     addLearningRecord: addLearningRecord,
     updateLearningRecord: updateLearningRecord,
+    getWordVoiceUrl: getWordVoiceUrl
 }
 

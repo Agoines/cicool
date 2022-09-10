@@ -87,7 +87,6 @@ Page({
                 reviewSum.push(dailySumByDate.dailySum[sum].review)
             }
             const LineChart = FundCharts.line;
-
             const line = new LineChart({
                 id: 'chart-line',
                 width: 375,

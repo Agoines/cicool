@@ -9,7 +9,6 @@
         <image src="../../src/search.svg" class="search-icon" bind:tap="openSearch"></image>
     </view>
     <view>
-
         <view class="container">
             <text class="learned-text" bind:tap="openData">已经掌握了</text>
             <text class="num" bind:tap="openData">{{learnData}}</text>

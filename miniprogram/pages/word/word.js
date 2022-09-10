@@ -6,7 +6,7 @@ let tempList = ["", "", "", ""]
 let isLoading = true
 let wordType;
 let wordNum = 0;
-
+let innerAudioContext;
 function getData(type) {
     wordType = type
     switch (type) {
@@ -72,6 +72,7 @@ Page({
     },
     onLoad: async function (options) {
         wordNum = 0;
+        innerAudioContext = wx.createInnerAudioContext({useWebAudioImplement: true})
         wordData = await getData(options.type);
         if (wordData.wordList.length === 0) {
             this.setData({
@@ -93,13 +94,26 @@ Page({
             temp[event.currentTarget.dataset.viewId].textColor = "#FFFFFF"
             wordData.wordList.push(wordData.wordList.shift());
         } else {
-            wordApi.addLearningRecord(
-                app.getUserId(),
-                [{
-                    wordId: wordData.wordList[0].wordId
-                }],
-                app.getToken()
-            )
+
+            switch (wordType) {
+                case 'learn':
+                    wordApi.addLearningRecord(
+                        app.getUserId(),
+                        [{
+                            wordId: wordData.wordList[0].wordId
+                        }],
+                        app.getToken()
+                    )
+                    break
+                case 'review':
+                    wordApi.updateLearningRecord(
+                        app.getUserId(),
+                        [{
+                            wordId: wordData.wordList[0].wordId
+                        }],
+                        app.getToken()
+                    )
+            }
             // 单词数量++
             wordNum++;
             wordData.wordList.shift();
@@ -111,6 +125,13 @@ Page({
                 wordBg: temp
             }
         )
+    },
+
+    // 播放
+    playVoice() {
+        innerAudioContext.src = wordApi.getWordVoiceUrl(wordData.wordList[0].word)
+        innerAudioContext.stop()
+        innerAudioContext.play()
     },
 
     next() {
