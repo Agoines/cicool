@@ -58,9 +58,15 @@ Page({
 
     },
 
-    bindPronunciationChange(e) {
+    async bindPronunciationChange(e) {
         this.setData({
             pronunciationIndex: e.detail.value
         })
+
+        await userApi.changeUserSetting(
+            app.getUserId(), app.getToken(), {
+                pronunciation: 0
+            }
+        )
     },
 });

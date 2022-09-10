@@ -142,11 +142,36 @@ const changeWordBook = (userId, bookId, token) => {
     })
 }
 
+const changeUserSetting = (userId, token, settings) => {
+    return new Promise((resolve, reject) => {
+        wx.request({
+            method: "POST",
+            url: domain + '/user/changeWordBook',
+
+            data: {
+                userId: userId,
+                settings: settings
+            },
+
+            header: {
+                Cookie: token
+            },
+
+            success: (res) => {
+                resolve(res.data)
+            },
+            fail: (err) => {
+                reject(err)
+            }
+        })
+    })
+}
 module.exports = {
     login: login,
     getUserInfo: getUserInfo,
     changeUserNickname: changeUserNickname,
     changeUserAvatarPic: changeUserAvatarPic,
     uploadAvatar: uploadAvatar,
-    changeWordBook: changeWordBook
+    changeWordBook: changeWordBook,
+    changeUserSetting: changeUserSetting
 }
