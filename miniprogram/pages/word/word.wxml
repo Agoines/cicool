@@ -14,8 +14,9 @@
             </view>
         </view>
         <view class="footer_container">
-            <view class="fab" wx:if="{{afterChange}}" bind:tap="next">
-                <text class="fab_text">下一个</text>
+            <view class="fab" wx:if="{{isChoose}}" bind:tap="next">
+                <text class="fab_text" wx:if="{{afterChange}}">下一个</text>
+                <text class="fab_text" wx:else>提交</text>
             </view>
         </view>
 

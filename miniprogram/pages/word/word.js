@@ -4,9 +4,11 @@ let wordData;
 let right;
 let tempList = ["", "", "", ""]
 let isLoading = true
+let chooseNum = 0
 let wordType;
 let wordNum = 0;
 let innerAudioContext;
+
 function getData(type) {
     wordType = type
     switch (type) {
@@ -70,6 +72,7 @@ Page({
             {textColor: "#202124", background: "#FFFFFF"},
             {textColor: "#202124", background: "#FFFFFF"}],
     },
+
     onLoad: async function (options) {
         wordNum = 0;
         innerAudioContext = wx.createInnerAudioContext({useWebAudioImplement: true})
@@ -87,44 +90,27 @@ Page({
 
     refresh(event) {
         if (isLoading || this.data.afterChange) return;
+        this.setData({
+            isChoose: true
+        })
+        chooseNum = event.currentTarget.dataset.viewId
+        this.setData({
+            afterChange: false,
+            wordBg: [{textColor: "#202124", background: "#FFFFFF"},
+                {textColor: "#202124", background: "#FFFFFF"},
+                {textColor: "#202124", background: "#FFFFFF"},
+                {textColor: "#202124", background: "#FFFFFF"}]
+        })
 
         let temp = this.data.wordBg
-        if (event.currentTarget.dataset.viewId !== right) {
-            temp[event.currentTarget.dataset.viewId].background = "#FF4D3C"
-            temp[event.currentTarget.dataset.viewId].textColor = "#FFFFFF"
-            wordData.wordList.push(wordData.wordList.shift());
-        } else {
-
-            switch (wordType) {
-                case 'learn':
-                    wordApi.addLearningRecord(
-                        app.getUserId(),
-                        [{
-                            wordId: wordData.wordList[0].wordId
-                        }],
-                        app.getToken()
-                    )
-                    break
-                case 'review':
-                    wordApi.updateLearningRecord(
-                        app.getUserId(),
-                        [{
-                            wordId: wordData.wordList[0].wordId
-                        }],
-                        app.getToken()
-                    )
-            }
-            // 单词数量++
-            wordNum++;
-            wordData.wordList.shift();
-        }
-        temp[right].background = "#07C160"
-        temp[right].textColor = "#FFFFFF"
+        temp[chooseNum].background = "#202124"
+        temp[chooseNum].textColor = "#FFFFFF"
+        wordData.wordList.push(wordData.wordList.shift());
         this.setData({
-                afterChange: true,
                 wordBg: temp
             }
         )
+
     },
 
     // 播放
@@ -135,20 +121,66 @@ Page({
     },
 
     next() {
-        if (wordData.wordList.length > 0) {
-            this.setData({
-                afterChange: false,
-                wordBg: [{textColor: "#202124", background: "#FFFFFF"},
-                    {textColor: "#202124", background: "#FFFFFF"},
-                    {textColor: "#202124", background: "#FFFFFF"},
-                    {textColor: "#202124", background: "#FFFFFF"}],
-            })
-            getWord(this, wordData)
-            return
+        if (this.data.isChoose) {
+            if (!this.data.afterChange) {
+                let temp = this.data.wordBg
+                if (chooseNum !== right) {
+                    temp[chooseNum].background = "#FF4D3C"
+                    temp[chooseNum].textColor = "#FFFFFF"
+                    wordData.wordList.push(wordData.wordList.shift());
+                } else {
+                    switch (wordType) {
+                        case 'learn':
+                            wordApi.addLearningRecord(
+                                app.getUserId(),
+                                [{
+                                    wordId: wordData.wordList[0].wordId
+                                }],
+                                app.getToken()
+                            )
+                            break
+                        case 'review':
+                            wordApi.updateLearningRecord(
+                                app.getUserId(),
+                                [{
+                                    wordId: wordData.wordList[0].wordId
+                                }],
+                                app.getToken()
+                            )
+                    }
+                    // 单词数量++
+                    wordNum++;
+                    wordData.wordList.shift();
+                }
+                temp[right].background = "#07C160"
+                temp[right].textColor = "#FFFFFF"
+                this.setData({
+                        afterChange: true,
+                        wordBg: temp
+                    }
+                )
+            } else {
+                if (wordData.wordList.length > 0) {
+                    this.setData({
+                        afterChange: false,
+                        wordBg: [{textColor: "#202124", background: "#FFFFFF"},
+                            {textColor: "#202124", background: "#FFFFFF"},
+                            {textColor: "#202124", background: "#FFFFFF"},
+                            {textColor: "#202124", background: "#FFFFFF"}],
+                    })
+                    getWord(this, wordData)
+                    return
+                }
+                wx.navigateTo({
+                    url: '../finish/finish?wordType=' + wordType + '&&wordNum=' + wordNum,
+                })
+                this.setData({
+                    isChoose: false
+                })
+            }
         }
-        wx.navigateTo({
-            url: '../finish/finish?wordType=' + wordType + '&&wordNum=' + wordNum,
-        })
+
+
     },
 
     back() {
