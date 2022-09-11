@@ -183,30 +183,6 @@ const addLearningRecord = (userId, record, token) => {
     })
 }
 
-const updateLearningRecord = (userId, record, token) => {
-    return new Promise((resolve, reject) => {
-        wx.request({
-            method: "POST",
-            url: domain + '/word/updateLearningRecord',
-
-            data: {
-                userId: userId,
-                record: record
-            },
-
-            header: {
-                Cookie: token
-            },
-
-            success: (res) => {
-                resolve(res.data)
-            },
-            fail: (err) => {
-                reject(err)
-            }
-        })
-    })
-}
 
 
 // 用于生成单词音频链接
@@ -232,7 +208,6 @@ module.exports = {
     getReviewData: getReviewData,
     toggleAddToNB: toggleAddToNB,
     addLearningRecord: addLearningRecord,
-    updateLearningRecord: updateLearningRecord,
     getWordVoiceUrl: getWordVoiceUrl
 }
 

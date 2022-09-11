@@ -129,25 +129,13 @@ Page({
                     temp[chooseNum].textColor = "#FFFFFF"
                     wordData.wordList.push(wordData.wordList.shift());
                 } else {
-                    switch (wordType) {
-                        case 'learn':
-                            wordApi.addLearningRecord(
-                                app.getUserId(),
-                                [{
-                                    wordId: wordData.wordList[0].wordId
-                                }],
-                                app.getToken()
-                            )
-                            break
-                        case 'review':
-                            wordApi.updateLearningRecord(
-                                app.getUserId(),
-                                [{
-                                    wordId: wordData.wordList[0].wordId
-                                }],
-                                app.getToken()
-                            )
-                    }
+                    wordApi.addLearningRecord(
+                        app.getUserId(),
+                        [{
+                            wordId: wordData.wordList[0].wordId
+                        }],
+                        app.getToken()
+                    )
                     // 单词数量++
                     wordNum++;
                     wordData.wordList.shift();
