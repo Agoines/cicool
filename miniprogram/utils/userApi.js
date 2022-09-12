@@ -146,7 +146,7 @@ const changeUserSetting = (userId, token, settings) => {
     return new Promise((resolve, reject) => {
         wx.request({
             method: "POST",
-            url: domain + '/user/changeWordBook',
+            url: domain + '/user/changeUserSetting',
 
             data: {
                 userId: userId,

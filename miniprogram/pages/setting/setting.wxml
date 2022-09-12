@@ -21,27 +21,29 @@
 
     <view class="page-section-title">界面功能</view>
 
-    <view class="weui-cell weui-cell_switch">
-        <view class="weui-cell__bd">遮挡单词或释义时倒计时</view>
-        <view class="weui-cell__ft">
-            <switch/>
-        </view>
-    </view>
-
     <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_switch">
             <view class="weui-cell__bd">单词自动发音</view>
             <view class="weui-cell__ft">
-                <switch/>
+                <switch checked="{{pronounce}}" bindchange="pronounce"/>
             </view>
         </view>
 
 
         <mp-cell ext-class="weui-cell_select weui-cell_select-after">
             <view class="weui-label">单词发音</view>
-            <picker bindchange="bindPronunciationChange" header-text="单词发音" value="{{pronunciationIndex}}"
+            <picker bindchange="bindPronunciationChange" header-text="单词发音" value="{{pronunciation}}"
                     range="{{pronunciations}}">
-                <view class="weui-select">{{pronunciations[pronunciationIndex]}}</view>
+                <view class="weui-select">{{pronunciations[pronunciation]}}</view>
+            </picker>
+        </mp-cell>
+
+
+        <mp-cell ext-class="weui-cell_select weui-cell_select-after">
+            <view class="weui-label">单词发音音源</view>
+            <picker bindchange="bindSourceChange" header-text="音源" value="{{source}}"
+                    range="{{uri}}">
+                <view class="weui-select">{{uri[source]}}</view>
             </picker>
         </mp-cell>
     </view>

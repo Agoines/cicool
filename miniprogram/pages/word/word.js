@@ -7,10 +7,11 @@ let isLoading = true
 let chooseNum = 0
 let wordType;
 let wordNum = 0;
-let innerAudioContext;
+let innerAudioContext = wx.createInnerAudioContext({useWebAudioImplement: true});
 
 function getData(type) {
     wordType = type
+
     switch (type) {
         case 'learn':
             return wordApi.getLearningData(
@@ -33,6 +34,14 @@ function getWord($this, wordData) {
             phonetic: wordData.wordList[0].phonetic
         }
     )
+    let pronunciation = $this.data.pronunciation + 1
+    let source = $this.data.source
+    console.log(source)
+    innerAudioContext.src = wordApi.getWordVoiceUrl(wordData.wordList[0].word, source, pronunciation)
+    console.log(innerAudioContext.src)
+    if ($this.data.pronounce) {
+        innerAudioContext.play()
+    }
 
     let translation = wordData.wordList[0].translation
     // 生成零到四的随机数
@@ -75,7 +84,19 @@ Page({
 
     onLoad: async function (options) {
         wordNum = 0;
-        innerAudioContext = wx.createInnerAudioContext({useWebAudioImplement: true})
+
+        let $this = this
+        const eventChannel = this.getOpenerEventChannel()
+        eventChannel.on('setData', function (data) {
+            console.log(data.data)
+            $this.setData({
+                pronunciation: data.data.pronunciation,
+                pronounce: data.data.pronounce,
+                source: data.data.source
+            })
+        })
+
+
         wordData = await getData(options.type);
         if (wordData.wordList.length === 0) {
             this.setData({
@@ -115,7 +136,6 @@ Page({
 
     // 播放
     playVoice() {
-        innerAudioContext.src = wordApi.getWordVoiceUrl(wordData.wordList[0].word)
         innerAudioContext.stop()
         innerAudioContext.play()
     },

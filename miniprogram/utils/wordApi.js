@@ -189,12 +189,10 @@ const addLearningRecord = (userId, record, token) => {
 // 有道词典: http://dict.youdao.com/dictvoice?type={1:英式;2:美式}&audio={word}
 // gstatic oxford: https://ssl.gstatic.com/dictionary/static/sounds/oxford/{word}--_gb_1.mp3
 const getWordVoiceUrl = (word, source = 0, type = 2) => {
-    let globalData = getApp().globalData
-    if (globalData.isLogin && globalData.userInfo.settings.type) type = globalData.userInfo.settings.type
     let url = ''
-    if (source === 0) {
+    if (source == 0) {
         url = `http://dict.youdao.com/dictvoice?type=${type}&audio=${word}`
-    } else if (source === 1) {
+    } else if (source == 1) {
         url = `https://ssl.gstatic.com/dictionary/static/sounds/oxford/${word}--_gb_1.mp3`
     }
     return url

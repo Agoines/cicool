@@ -6,10 +6,14 @@ const FundCharts = require('../../utils/FundCharts.min.js');
 const app = getApp();
 
 let isLoading = true
-const openPage = ($this, pageName) => {
+const openPage = ($this, pageName, data) => {
     if (!isLoading) {
         wx.navigateTo({
-            url: pageName
+            url: pageName,
+            success: function (res) {
+                // 通过 eventChannel 向被打开页面传送数据
+                res.eventChannel.emit('setData', {data: data})
+            }
         })
     } else {
         $this.setData({
@@ -18,8 +22,8 @@ const openPage = ($this, pageName) => {
     }
 }
 
-function openWord($this, type) {
-    openPage($this, "../word/word?type=" + type)
+function openWord($this, type, data) {
+    openPage($this, "../word/word?type=" + type, data)
 }
 
 Page({
@@ -104,6 +108,34 @@ Page({
 
             line.init();
 
+            const userData = await userApi.getUserInfo(
+                app.getUserId(),
+                app.getToken()
+            )
+            console.log(userData.data.settings)
+
+            let settings = JSON.parse(userData.data.settings)
+
+            let pronunciation, pronounce, source;
+
+            if (settings === undefined) {
+                pronunciation = 0
+                pronounce = false
+                source = 0
+            } else {
+                pronunciation = settings.pronunciation
+                pronounce = settings.pronounce
+                source = settings.source
+            }
+
+            $this.setData({
+                pronunciation: pronunciation,
+                pronounce: pronounce,
+                source: source
+            })
+            console.log($this.data)
+
+
             await wx.hideNavigationBarLoading();
             isLoading = false
         })
@@ -147,7 +179,11 @@ Page({
     },
 
     openSetting() {
-        openPage(this, "../setting/setting")
+        openPage(this, "../setting/setting", {
+            pronunciation: this.data.pronunciation,
+            pronounce: this.data.pronounce,
+            source: this.data.source
+        })
     },
 
     openSearch() {
@@ -155,11 +191,19 @@ Page({
     },
 
     openReview() {
-        openWord(this, 'review')
+        openWord(this, 'review', {
+            pronunciation: this.data.pronunciation,
+            pronounce: this.data.pronounce,
+            source: this.data.source
+        })
     },
 
     openLearn() {
-        openWord(this, 'learn')
+        openWord(this, 'learn', {
+            pronunciation: this.data.pronunciation,
+            pronounce: this.data.pronounce,
+            source: this.data.source
+        })
     }
 
 })

@@ -26,9 +26,8 @@ Page({
         })
     },
     backIndex() {
-        let pages = getCurrentPages().length - 2;
         wx.navigateBack({
-            delta: pages
+            delta: 2
         })
     }
 });
