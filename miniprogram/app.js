@@ -26,7 +26,8 @@ App({
         //发送请求
         let data = await userApi.login(login.code)
         // 判断是否报错
-        if (data.errcode === 0) {
+        const {errcode} = data
+        if (errcode === 0) {
             data = data.data
             userId = data.id
             token = data.token

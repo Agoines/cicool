@@ -8,10 +8,11 @@
                   data-text="{{item.bookId}}"
                   bindtap="handleTap"
                   class="book-item"
+                  style="background:{{item.color + '0d'}}; border-style:solid; border-width:0.2px;border-color:{{item.color}};"
                   wx:key="index">
                 <view class="content">
-                    <text class="book-text">{{item.name}}</text>
-                    <text class="book-description">{{item.description}}</text>
+                    <text class="book-text" style="color:{{item.color}}">{{item.name}}</text>
+                    <text class="book-description" style="color:#4D5E80">{{item.description}}</text>
                 </view>
 
             </view>

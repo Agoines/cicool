@@ -22,7 +22,7 @@ Page({
             )
             console.log(searchData)
             // 获取对应的单词
-            let directSearch = searchData.directSearch
+            let {directSearch} = searchData
             let resolveList = [];
             // 转换为对应数组
             for (let index = 0; index < directSearch.length; index++) {
@@ -43,6 +43,7 @@ Page({
         const wordId = event.detail.item.wordId
         wx.navigateTo({
             url: 'wordDetail/wordDetail?wordId=' + wordId,
+            success: {}
         })
     },
 });

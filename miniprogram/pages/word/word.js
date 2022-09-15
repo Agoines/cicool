@@ -7,43 +7,44 @@ let isLoading = true
 let chooseNum = 0
 let wordType;
 let wordNum = 0;
+
+let page;
 let innerAudioContext = wx.createInnerAudioContext({useWebAudioImplement: true});
 
-function getData(type) {
-    wordType = type
-
-    switch (type) {
+function getData() {
+    switch (wordType) {
         case 'learn':
             return wordApi.getLearningData(
                 app.getToken(),
                 app.getUserId(),
-                app.getBookId()
+                page.data.bookId
             )
         case 'review':
             return wordApi.getReviewData(
                 app.getToken(),
                 app.getUserId(),
-                app.getBookId()
+                page.data.bookId
             )
     }
 }
 
-function getWord($this, wordData) {
-    $this.setData({
-            word: wordData.wordList[0].word,
-            phonetic: wordData.wordList[0].phonetic
+function getWord(wordData) {
+    const {wordList} = wordData
+    page.setData({
+            word: wordList[0].word,
+            phonetic: wordList[0].phonetic
         }
     )
-    let pronunciation = $this.data.pronunciation + 1
-    let source = $this.data.source
-    console.log(source)
-    innerAudioContext.src = wordApi.getWordVoiceUrl(wordData.wordList[0].word, source, pronunciation)
+    let pronunciation = page.data.pronunciation + 1
+    let source = page.data.source
+    console.log(typeof source)
+    innerAudioContext.src = wordApi.getWordVoiceUrl(wordList[0].word, source, pronunciation)
     console.log(innerAudioContext.src)
-    if ($this.data.pronounce) {
+    if (page.data.pronounce) {
         innerAudioContext.play()
     }
 
-    let translation = wordData.wordList[0].translation
+    let translation = wordList[0].translation
     // 生成零到四的随机数
     right = Math.floor(Math.random() * 4)
     tempList[right] = translation
@@ -53,7 +54,7 @@ function getWord($this, wordData) {
             continue;
         }
 
-        const sampleList = wordData.wordList[0].sampleList
+        const {sampleList} = wordList[0]
         let x = sampleList[Math.floor(Math.random() * sampleList.length)].translation
         if (tempList.indexOf(x) === -1) {
             tempList[i] = x
@@ -61,7 +62,7 @@ function getWord($this, wordData) {
         }
     }
 
-    $this.setData({
+    page.setData({
         wordTranslation: tempList
     })
     isLoading = false
@@ -84,32 +85,36 @@ Page({
 
     onLoad: async function (options) {
         wordNum = 0;
-
-        let $this = this
+        page = this
         const eventChannel = this.getOpenerEventChannel()
         eventChannel.on('setData', function (data) {
             console.log(data.data)
-            $this.setData({
+            page.setData({
                 pronunciation: data.data.pronunciation,
                 pronounce: data.data.pronounce,
-                source: data.data.source
+                source: data.data.source,
+                bookId: data.data.bookId
             })
         })
 
+        wordType = options.type
+        wordData = await getData();
 
-        wordData = await getData(options.type);
-        if (wordData.wordList.length === 0) {
+        const {wordList} = wordData
+
+        if (wordList.length === 0) {
             this.setData({
                 isListEmpty: true
             })
 
             return
         }
-        getWord(this, wordData);
+        getWord(wordData);
     },
 
 
     refresh(event) {
+        const {wordList} = wordData
         if (isLoading || this.data.afterChange) return;
         this.setData({
             isChoose: true
@@ -126,7 +131,8 @@ Page({
         let temp = this.data.wordBg
         temp[chooseNum].background = "#202124"
         temp[chooseNum].textColor = "#FFFFFF"
-        wordData.wordList.push(wordData.wordList.shift());
+
+        wordList.push(wordList.shift());
         this.setData({
                 wordBg: temp
             }
@@ -140,25 +146,26 @@ Page({
         innerAudioContext.play()
     },
 
-    next() {
+    async next() {
+        const {wordList} = wordData
         if (this.data.isChoose) {
             if (!this.data.afterChange) {
                 let temp = this.data.wordBg
                 if (chooseNum !== right) {
                     temp[chooseNum].background = "#FF4D3C"
                     temp[chooseNum].textColor = "#FFFFFF"
-                    wordData.wordList.push(wordData.wordList.shift());
+                    wordList.push(wordList.shift());
                 } else {
-                    wordApi.addLearningRecord(
+                    await wordApi.addLearningRecord(
                         app.getUserId(),
                         [{
-                            wordId: wordData.wordList[0].wordId
+                            wordId: wordList[0].wordId
                         }],
                         app.getToken()
                     )
                     // 单词数量++
                     wordNum++;
-                    wordData.wordList.shift();
+                    wordList.shift();
                 }
                 temp[right].background = "#07C160"
                 temp[right].textColor = "#FFFFFF"
@@ -168,7 +175,8 @@ Page({
                     }
                 )
             } else {
-                if (wordData.wordList.length > 0) {
+
+                if (wordList.length > 0) {
                     this.setData({
                         afterChange: false,
                         wordBg: [{textColor: "#202124", background: "#FFFFFF"},
@@ -176,11 +184,12 @@ Page({
                             {textColor: "#202124", background: "#FFFFFF"},
                             {textColor: "#202124", background: "#FFFFFF"}],
                     })
-                    getWord(this, wordData)
+                    getWord(wordData)
                     return
                 }
                 wx.navigateTo({
                     url: '../finish/finish?wordType=' + wordType + '&&wordNum=' + wordNum,
+                    success: {}
                 })
                 this.setData({
                     isChoose: false
@@ -192,6 +201,9 @@ Page({
     },
 
     back() {
-        wx.navigateBack()
+        wx.navigateBack({
+            delta: 1,
+            success: {}
+        })
     }
 });

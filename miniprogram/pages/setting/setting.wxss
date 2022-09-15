@@ -5,9 +5,9 @@
     height: 280rpx;
     font-size: 50rpx;
     margin: 10rpx;
-    background: url('https://products.ls.graphics/mesh-gradients/images/50.-Columbia-Blue.jpg');
     background-size: cover;
     border-radius: 18rpx;
+    background: #fff
 }
 
 .book-text {
@@ -27,6 +27,8 @@
 .content {
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
+    text-align: left;
+    margin-left: 12px;
+    margin-top: 6px;
 }

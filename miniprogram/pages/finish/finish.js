@@ -1,6 +1,14 @@
-const wordApi = require("../../utils/wordApi");
+/**
+ * 返回首页
+ */
+function backIndex() {
+    wx.navigateBack({
+        delta: 2,
+        success: {}
+    })
+}
+
 Page({
-    data: {},
     onLoad: function (options) {
         let wordType
         switch (options.wordType) {
@@ -11,23 +19,17 @@ Page({
                 wordType = '复习'
                 break
         }
-        console.log(options.wordNum)
+
         this.setData({
             wordType: wordType,
             wordNum: options.wordNum
         })
-
     },
 
     onUnload() {
-        let pages = getCurrentPages().length - 1;
-        wx.navigateBack({
-            delta: pages
-        })
+        backIndex()
     },
     backIndex() {
-        wx.navigateBack({
-            delta: 2
-        })
+        backIndex()
     }
 });

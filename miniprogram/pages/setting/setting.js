@@ -1,6 +1,7 @@
 const app = getApp();
 const statisticApi = require("../../utils/statisticApi.js");
 const userApi = require("../../utils/userApi.js");
+let page;
 Page({
     data: {
         pronunciations: ['英式', '美式'],
@@ -16,19 +17,22 @@ Page({
     },
 
     async onLoad() {
+        page = this
         const allWBData = await statisticApi.getAllWBData(
             app.getUserId(),
             app.getToken()
         )
-        let $this = this
+
         const eventChannel = this.getOpenerEventChannel()
         eventChannel.on('setData', function (data) {
-            $this.setData({
+            page.setData({
                 pronunciation: data.data.pronunciation,
                 pronounce: data.data.pronounce,
-                source: data.data.source
+                source: data.data.source,
+                bookId: data.data.bookId
             })
         })
+
         this.setData({
             booksData: allWBData.books
         })
@@ -112,10 +116,14 @@ Page({
     },
 
     onUnload() {
-        let pages = getCurrentPages()    //获取加载的页面( 页面栈 )
-        let prevPage = pages[pages.length - 2]    //获取上一个页面
+        //获取加载的页面( 页面栈 )
+        let pages = getCurrentPages()
+        //获取上一个页面
+        let prevPage = pages[pages.length - 2]
+
         // 设置上一个页面的数据（可以修改，也可以新增）
         prevPage.setData({
+            bookId: this.bookId,
             pronunciation: this.data.pronunciation,
             pronounce: this.data.pronounce,
             source: this.data.source
