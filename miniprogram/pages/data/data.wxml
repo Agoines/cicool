@@ -1,3 +1,12 @@
-<view>
-
+<view class="fundCharts-demo">
+    <view>
+        <text class="canvas-title">七天内详细学习状况</text>
+        <canvas
+                class="u-canvas"
+                style="width: 375px; height: 212px;"
+                canvas-id="chart-bar"
+                bindtouchstart="chart1Touch"
+                bindtouchmove="chart1Touch"
+        ></canvas>
+    </view>
 </view>

@@ -127,9 +127,6 @@ async function drawLine() {
         learnSum.push(learn)
         reviewSum.push(review)
     }
-
-    console.log("学习", learnSum, "复习", reviewSum)
-
     const {line} = FundCharts;
     dailySumLine = new line({
         id: 'chart-line',
