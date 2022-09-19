@@ -82,17 +82,14 @@ async function setSetting() {
         app.getUserId(),
         app.getToken()
     )
-    console.log(userData.data.settings)
-
-    let settings = JSON.parse(userData.data.settings)
 
     let pronunciation, pronounce, source;
-
-    if (settings === undefined) {
+    if (userData.data.settings === '{}') {
         pronunciation = 0
         pronounce = false
         source = 0
     } else {
+        let settings = JSON.parse(userData.data.settings)
         pronunciation = settings.pronunciation
         pronounce = settings.pronounce
         source = settings.source
@@ -103,6 +100,7 @@ async function setSetting() {
         pronounce: pronounce,
         source: source
     })
+    console.log(page.data.pronunciation)
 }
 
 /**

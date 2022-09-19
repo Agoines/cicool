@@ -34,6 +34,7 @@ Page({
         this.setData({
             booksData: allWBData.books
         })
+
     },
 
     async handleTap(e) {
@@ -54,16 +55,23 @@ Page({
             let pages = getCurrentPages();
             let item = e.currentTarget.dataset.text - 1;
             let prevPage = pages[pages.length - 2];
+
+            this.setData({
+                bookId: (item + 1)
+            })
             prevPage.setData({
                 bookName: '词书：' + this.data.booksData[item].name,
                 bookTextColor: this.data.booksData[item].color,
-                bookBackgroundColor: this.data.booksData[item].color + '33'
+                bookBackgroundColor: this.data.booksData[item].color + '33',
+            })
+            this.setData({
+                bookId: this.data.booksData[item].bookId
             })
         } catch (err) {
             this.setData({
                     message: '修改失败 ' + err,
                     type: 'error',
-                    showTopTips: true
+                    showTopTips: true,
                 }
             )
         }
