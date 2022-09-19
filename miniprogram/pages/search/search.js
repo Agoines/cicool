@@ -12,28 +12,36 @@ Page({
         })
     },
     search: (value) => {
+        let resolveList = [];
         return new Promise(async (resolve, reject) => {
-            const searchData = await wordApi.getSearchResult(
-                app.getUserId(),
-                value,
-                app.getToken()
-            ).catch(any =>
-                reject(any)
-            )
-            console.log(searchData)
-            // 获取对应的单词
-            let {directSearch} = searchData
-            let resolveList = [];
-            // 转换为对应数组
-            for (let index = 0; index < directSearch.length; index++) {
-                let item = {}
-                item.text = directSearch[index].word + '\n' + directSearch[index].translation
-                item.word = directSearch[index].word
-                item.wordId = directSearch[index].wordId
-                item.translation = directSearch[index].translation
-                resolveList[index] = item
+
+            if (value !== null && value !== '') {
+                await wordApi.getSearchResult(
+                    app.getUserId(),
+                    value,
+                    app.getToken()
+                ).then(
+                    searchData => {
+                        // 获取对应的单词
+                        let {directSearch} = searchData
+                        // 转换为对应数组
+                        for (let index = 0; index < directSearch.length; index++) {
+                            let item = {}
+                            item.text = directSearch[index].word + '\n' + directSearch[index].translation
+                            item.word = directSearch[index].word
+                            item.wordId = directSearch[index].wordId
+                            item.translation = directSearch[index].translation
+                            resolveList[index] = item
+                        }
+                        resolve(resolveList)
+                    }
+                ).catch(any =>
+                    reject(any)
+                )
+            } else {
+                resolve(resolveList)
             }
-            resolve(resolveList)
+
 
         })
     },

@@ -21,23 +21,27 @@ App({
     },
 
     async onLaunch() {
-        const login = await wx.login()
-        //发送请求
-        let data = await userApi.login(login.code)
-        // 判断是否报错
-        const {errcode} = data
-        if (errcode === 0) {
-            data = data.data
-            userId = data.id
-            token = data.token
-            bookId = data.bookId
-            nickname = data.nickName
-            avatarPic = data.avatarPic
-            isLogin = true
-            afterLogin()
-        }
-
-
+        await wx.login().then(
+            async login => {
+                //发送请求
+                await userApi.login(login.code).then(
+                    data => {
+                        // 判断是否报错
+                        const {errcode} = data
+                        if (errcode === 0) {
+                            data = data.data
+                            userId = data.id
+                            token = data.token
+                            bookId = data.bookId
+                            nickname = data.nickName
+                            avatarPic = data.avatarPic
+                            isLogin = true
+                            afterLogin()
+                        }
+                    }
+                )
+            }
+        )
     },
 
     getBookId() {

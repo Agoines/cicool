@@ -11,16 +11,17 @@ let wordNum = 0;
 let page;
 let innerAudioContext = wx.createInnerAudioContext({useWebAudioImplement: true});
 
-function getData() {
+async function getData() {
+    console.log("bookId 是", page.data.bookId)
     switch (wordType) {
         case 'learn':
-            return wordApi.getLearningData(
+            return await wordApi.getLearningData(
                 app.getToken(),
                 app.getUserId(),
                 page.data.bookId
             )
         case 'review':
-            return wordApi.getReviewData(
+            return await wordApi.getReviewData(
                 app.getToken(),
                 app.getUserId(),
                 page.data.bookId
@@ -37,12 +38,11 @@ function getWord(wordData) {
     )
     let pronunciation = page.data.pronunciation + 1
     let source = page.data.source
-    console.log(typeof source)
+    // 设置读音
     innerAudioContext.src = wordApi.getWordVoiceUrl(wordList[0].word, source, pronunciation)
     console.log(innerAudioContext.src)
-    if (page.data.pronounce) {
-        innerAudioContext.play()
-    }
+    // 自动发声
+    if (page.data.pronounce) innerAudioContext.play()
 
     let translation = wordList[0].translation
     // 生成零到四的随机数
@@ -87,7 +87,7 @@ Page({
         wordNum = 0;
         page = this
         const eventChannel = this.getOpenerEventChannel()
-        eventChannel.on('setData', function (data) {
+        eventChannel.on('setData', async function (data) {
             console.log(data.data)
             page.setData({
                 pronunciation: data.data.pronunciation,
@@ -95,24 +95,25 @@ Page({
                 source: data.data.source,
                 bookId: data.data.bookId
             })
+
+            wordType = options.type
+            await getData().then(
+                function (data) {
+                    wordData = data
+                    const {wordList} = wordData
+                    console.log(wordList)
+                    if (wordList.length === 0) {
+                        this.setData({
+                            isListEmpty: true
+                        })
+                        return
+                    }
+                    getWord(wordData);
+                }
+            );
         })
-
-        wordType = options.type
-        wordData = await getData();
-
-        const {wordList} = wordData
-
-        if (wordList.length === 0) {
-            this.setData({
-                isListEmpty: true
-            })
-
-            return
-        }
-        getWord(wordData);
+        console.log('eventChannel 数据：', page.data)
     },
-
-
     refresh(event) {
         const {wordList} = wordData
         if (isLoading || this.data.afterChange) return;
@@ -131,7 +132,6 @@ Page({
         let temp = this.data.wordBg
         temp[chooseNum].background = "#202124"
         temp[chooseNum].textColor = "#FFFFFF"
-
         wordList.push(wordList.shift());
         this.setData({
                 wordBg: temp
@@ -175,7 +175,6 @@ Page({
                     }
                 )
             } else {
-
                 if (wordList.length > 0) {
                     this.setData({
                         afterChange: false,

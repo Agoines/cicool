@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "mp-cell": "weui-miniprogram/cell/cell",
-    "mp-toptips": "weui-miniprogram/toptips/toptips"
+    "mp-toptips": "weui-miniprogram/toptips/toptips",
+    "mp-cells": "weui-miniprogram/cells/cells"
   }
 }

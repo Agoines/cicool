@@ -16,13 +16,19 @@ Page({
 
     async onLoad() {
         page = this
-        const allWBData = await statisticApi.getAllWBData(
+        await statisticApi.getAllWBData(
             app.getUserId(),
             app.getToken()
+        ).then(
+            allWBData => {
+                this.setData({
+                    booksData: allWBData.books
+                })
+            }
         )
 
         const eventChannel = this.getOpenerEventChannel()
-        eventChannel.on('setData', function (data) {
+        await eventChannel.on('setData', function (data) {
             page.setData({
                 pronunciation: data.data.pronunciation,
                 pronounce: data.data.pronounce,
@@ -31,9 +37,6 @@ Page({
             })
         })
 
-        this.setData({
-            booksData: allWBData.books
-        })
 
     },
 

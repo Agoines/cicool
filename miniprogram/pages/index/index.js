@@ -42,9 +42,15 @@ async function init() {
 
     console.log("初始化中 UserId", app.getUserId(), "初始化中 Token", app.getToken())
 
-    let allLearnData = await statisticApi.getAllLearnData(
+    await statisticApi.getAllLearnData(
         app.getUserId(),
         app.getToken()
+    ).then(allLearnData => {
+            const {master} = allLearnData
+            page.setData({
+                learnData: master
+            })
+        }
     )
 
     // 存储 BookId
@@ -53,23 +59,23 @@ async function init() {
     })
 
     if (page.data.bookId !== -1 && page.data.bookId !== undefined) {
-        let bookData = await statisticApi.getSingleWBData(
+        await statisticApi.getSingleWBData(
             app.getToken(),
             app.getUserId(),
             page.data.bookId
+        ).then(bookData => {
+                const {book} = bookData
+                page.setData({
+                    bookName: '词书：' + book.name,
+                    bookTextColor: book.color,
+                    bookBackgroundColor: book.color + '33'
+                })
+            }
         )
-        const {book} = bookData
-        page.setData({
-            bookName: '词书：' + book.name,
-            bookTextColor: book.color,
-            bookBackgroundColor: book.color + '33'
-        })
+
     }
 
-    const {master} = allLearnData
-    page.setData({
-        learnData: master
-    })
+
     console.log("初始化方法块结束")
 }
 

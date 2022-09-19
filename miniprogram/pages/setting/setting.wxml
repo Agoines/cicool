@@ -1,6 +1,6 @@
 <view class="page">
     <mp-toptips msg="{{message}}" type="{{type}}" show="{{showTopTips}}" delay="{{2000}}"></mp-toptips>
-    <view class="page-section-title">单词书</view>
+    <view class="page-section-title">单词书：{{booksData[bookId - 1].name}}</view>
     <scroll-view style="height:300rpx;background:#00000000;width:100%;"
                  scroll-x="true">
         <view style="width: 2340rpx; height:300rpx;">
@@ -19,10 +19,7 @@
         </view>
     </scroll-view>
 
-
-    <view class="page-section-title">界面功能</view>
-
-    <view class="weui-cells weui-cells_after-title">
+    <mp-cells title="开关">
         <view class="weui-cell weui-cell_switch">
             <view class="weui-cell__bd">单词自动发音</view>
             <view class="weui-cell__ft">
@@ -30,22 +27,21 @@
             </view>
         </view>
 
-
         <mp-cell ext-class="weui-cell_select weui-cell_select-after">
-            <view class="weui-label">单词发音</view>
+            <view slot="title" class="weui-label">单词发音</view>
             <picker bindchange="bindPronunciationChange" header-text="单词发音" value="{{pronunciation}}"
                     range="{{pronunciations}}">
                 <view class="weui-select">{{pronunciations[pronunciation]}}</view>
             </picker>
         </mp-cell>
-
-
         <mp-cell ext-class="weui-cell_select weui-cell_select-after">
-            <view class="weui-label">单词发音音源</view>
+            <view slot="title" class="weui-label">单词发音音源</view>
             <picker bindchange="bindSourceChange" header-text="音源" value="{{source}}"
                     range="{{uri}}">
                 <view class="weui-select">{{uri[source]}}</view>
             </picker>
         </mp-cell>
-    </view>
+
+        <mp-cell value="版本号" footer="1.0.2"></mp-cell>
+    </mp-cells>
 </view>
