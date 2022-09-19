@@ -51,7 +51,7 @@ async function init() {
         bookId: app.getBookId()
     })
 
-    if (app.getBookId() !== -1) {
+    if (page.bookId !== -1) {
         let bookData = await statisticApi.getSingleWBData(
             app.getToken(),
             app.getUserId(),
@@ -153,7 +153,7 @@ async function drawLine() {
 
 
 function openWord(type, data) {
-    if (app.getBookId() !== -1) {
+    if (page.bookId !== -1) {
         openPage("../word/word?type=" + type, data)
     } else {
         page.setData({

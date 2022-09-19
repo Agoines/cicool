@@ -6,7 +6,6 @@ Page({
     data: {
         pronunciations: ['英式', '美式'],
         pronunciation: 0,
-        bookId: wx.getStorageSync('bookId'),
         books: [],
 
         showTopTips: false,
