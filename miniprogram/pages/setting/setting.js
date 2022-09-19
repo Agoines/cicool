@@ -12,8 +12,7 @@ Page({
         showTopTips: false,
         message: '',
         type: '',
-
-        uri: ['有道词典', 'gstatic'],
+        uri: ['有道词典', 'gstatic']
     },
 
     async onLoad() {

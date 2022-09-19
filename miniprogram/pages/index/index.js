@@ -19,7 +19,9 @@ const openPage = (pageName, data) => {
         })
     } else {
         page.setData({
-            showTopTips: true
+            showTopTips: true,
+            topTipText: "别点这么快，数据还没加载好呢",
+            topTipType: "error"
         })
     }
 }
@@ -44,10 +46,12 @@ async function init() {
         app.getToken()
     )
 
+    // 存储 BookId
+    page.setData({
+        bookId: app.getBookId()
+    })
+
     if (app.getBookId() !== -1) {
-        page.setData({
-            bookId: app.getBookId()
-        })
         let bookData = await statisticApi.getSingleWBData(
             app.getToken(),
             app.getUserId(),
@@ -127,6 +131,7 @@ async function drawLine() {
         learnSum.push(learn)
         reviewSum.push(review)
     }
+
     const {line} = FundCharts;
     dailySumLine = new line({
         id: 'chart-line',
@@ -148,7 +153,16 @@ async function drawLine() {
 
 
 function openWord(type, data) {
-    openPage("../word/word?type=" + type, data)
+    if (app.getBookId() !== -1) {
+        openPage("../word/word?type=" + type, data)
+    } else {
+        page.setData({
+            showTopTips: true,
+            topTipText: "选择一本词书吧，你还没有选择词书",
+            topTipType: "info"
+        })
+    }
+
 }
 
 Page({
