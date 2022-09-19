@@ -1,5 +1,4 @@
 const userApi = require("utils/userApi.js");
-
 let token = ''
 let userId = ''
 let bookId = ''

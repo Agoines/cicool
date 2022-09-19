@@ -121,7 +121,7 @@ Page({
 
         // 设置上一个页面的数据（可以修改，也可以新增）
         prevPage.setData({
-            bookId: this.bookId,
+            bookId: this.data.bookId,
             pronunciation: this.data.pronunciation,
             pronounce: this.data.pronounce,
             source: this.data.source

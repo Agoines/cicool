@@ -2,7 +2,6 @@ const statisticApi = require("../../utils/statisticApi.js");
 const userApi = require("../../utils/userApi.js");
 
 const FundCharts = require('../../utils/FundCharts.min.js');
-
 const app = getApp()
 // 替代下文 page 中 this
 let page
@@ -38,8 +37,10 @@ async function init() {
     // 设置名称和头像
     page.setData({
         nickname: app.getNickname(),
-        avatarPic: app.getAvatarPic(),
+        avatarPic: app.getAvatarPic()
     })
+
+    console.log("初始化中 UserId", app.getUserId(), "初始化中 Token", app.getToken())
 
     let allLearnData = await statisticApi.getAllLearnData(
         app.getUserId(),
@@ -51,13 +52,12 @@ async function init() {
         bookId: app.getBookId()
     })
 
-    if (page.bookId !== -1) {
+    if (page.data.bookId !== -1 && page.data.bookId !== undefined) {
         let bookData = await statisticApi.getSingleWBData(
             app.getToken(),
             app.getUserId(),
             page.data.bookId
         )
-
         const {book} = bookData
         page.setData({
             bookName: '词书：' + book.name,
@@ -70,6 +70,7 @@ async function init() {
     page.setData({
         learnData: master
     })
+    console.log("初始化方法块结束")
 }
 
 /**
@@ -153,7 +154,7 @@ async function drawLine() {
 
 
 function openWord(type, data) {
-    if (page.bookId !== -1) {
+    if (page.data.bookId !== -1) {
         openPage("../word/word?type=" + type, data)
     } else {
         page.setData({
@@ -186,15 +187,12 @@ Page({
         await wx.showNavigationBarLoading();
         page = this
         app.afterLogin(async function () {
-
             // 初始化
             await init()
             // 绘制线条
             await drawLine()
             // 修改设置
             await setSetting()
-
-
             await wx.hideNavigationBarLoading();
             isLoading = false
         })
