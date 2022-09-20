@@ -27,18 +27,18 @@
             </view>
         </view>
 
-        <mp-cell ext-class="weui-cell_select weui-cell_select-after">
+        <mp-cell footer="{{pronunciations[pronunciation]}}">
             <view slot="title" class="weui-label">单词发音</view>
             <picker bindchange="bindPronunciationChange" header-text="单词发音" value="{{pronunciation}}"
                     range="{{pronunciations}}">
-                <view class="weui-select">{{pronunciations[pronunciation]}}</view>
+                <view class="weui-select"/>
             </picker>
         </mp-cell>
-        <mp-cell ext-class="weui-cell_select weui-cell_select-after">
+        <mp-cell footer="{{uri[source]}}">
             <view slot="title" class="weui-label">单词发音音源</view>
             <picker bindchange="bindSourceChange" header-text="音源" value="{{source}}"
                     range="{{uri}}">
-                <view class="weui-select">{{uri[source]}}</view>
+                <view class="weui-select"/>
             </picker>
         </mp-cell>
 

@@ -1,6 +1,10 @@
 <view class="page cover-box">
     <view class="title_layout">
-        <text class="title">{{word}}</text>
+        <view class="title">{{word}}
+            <image class="add_note_book" bind:tap="setNoteBook"
+                   style="background: {{inNotebook? '#FFCB33':'#4D5E80'}};mask-image:url('../../src/notebook.svg');-webkit-mask-image:url('../../src/notebook.svg');-moz-mask-image:url('../../src/notebook.svg') "
+            />
+        </view>
         <text class="sub_title" bind:tap="playVoice">{{phonetic}}</text>
     </view>
 

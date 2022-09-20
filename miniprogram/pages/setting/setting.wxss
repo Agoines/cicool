@@ -32,7 +32,3 @@
     margin-left: 12px;
     margin-top: 6px;
 }
-
-.weui-select {
-    margin-left: 40px;
-}

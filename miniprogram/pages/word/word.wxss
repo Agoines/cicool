@@ -3,8 +3,14 @@
     width: 100%;
 }
 
-.loading_style {
-    height: 25px;
+#svg {
+    color: #369;
+}
+
+.add_note_book {
+    margin-left: 12px;
+    height: 24px;
+    width: 24px;
 }
 
 .button {

@@ -132,7 +132,7 @@ const getReviewData = (token, userId, wordBookId, size = 10, sample = true) => {
     })
 }
 
-const toggleAddToNB = (userId, wordBookId, add, token) => {
+const toggleAddToNB = (userId, wordId, add, token) => {
     return new Promise((resolve, reject) => {
         wx.request({
             method: "POST",
@@ -140,7 +140,7 @@ const toggleAddToNB = (userId, wordBookId, add, token) => {
 
             data: {
                 userId: userId,
-                wordBookId: wordBookId,
+                wordId: wordId,
                 add: add
             },
 

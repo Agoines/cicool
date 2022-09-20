@@ -44,6 +44,11 @@ function getWord(wordData) {
     // 自动发声
     if (page.data.pronounce) innerAudioContext.play()
 
+    page.setData({
+            inNotebook: wordList[0].inNotebook
+        }
+    )
+
     let translation = wordList[0].translation
     // 生成零到四的随机数
     right = Math.floor(Math.random() * 4)
@@ -77,6 +82,7 @@ Page({
         isListEmpty: false,
         dialogButton: [{text: '确定'}],
         afterChange: false,
+        noteBookColor: "#4D5E80",
         wordBg: [{textColor: "#202124", background: "#FFFFFF"},
             {textColor: "#202124", background: "#FFFFFF"},
             {textColor: "#202124", background: "#FFFFFF"},
@@ -197,6 +203,22 @@ Page({
         }
 
 
+    },
+
+    setNoteBook() {
+        const {wordList} = wordData
+        wordList[0].inNotebook = !wordList[0].inNotebook
+        page.setData({
+                inNotebook: wordList[0].inNotebook
+            }
+        )
+        console.log(page.data.inNotebook)
+        wordApi.toggleAddToNB(
+            app.getUserId(),
+            wordList[0].wordId,
+            wordList[0].inNotebook,
+            app.getToken()
+        )
     },
 
     back() {
