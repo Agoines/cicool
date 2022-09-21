@@ -3,5 +3,7 @@
     "mp-halfScreenDialog": "weui-miniprogram/half-screen-dialog/half-screen-dialog",
     "mp-toptips": "weui-miniprogram/toptips/toptips"
   },
-  "onReachBottomDistance": 0
+  "onReachBottomDistance": 0,
+  "navigationStyle": "custom",
+  "renderer": "skyline"
 }
