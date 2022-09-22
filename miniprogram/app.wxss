@@ -1,3 +1,14 @@
+.page {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: #F5F5F7;
+}
+
+.cover-box {
+    padding: 140rpx 50rpx 100rpx;
+}
+
 .title_layout {
     margin-top: 20px;
     margin-left: 20px;
@@ -15,7 +26,6 @@
 
 .sub_title {
     width: 100%;
-
     font-style: normal;
     font-weight: 400;
     font-size: 16px;

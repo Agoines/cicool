@@ -18,7 +18,7 @@
             <text class="char-bubble2 char-bubble2-text" bind:tap="openData">复习3个单词，学习10个单词</text>
 
             <text class="char-bubble char-bubble-text">你要学习的单词书什么？</text>
-            <text class="char-bubble2 char-bubble2-text">高考词书</text>
+            <text class="char-bubble2 char-bubble2-text" bind:tap="openBook">{{bookName}}词书</text>
         </view>
 
     </view>

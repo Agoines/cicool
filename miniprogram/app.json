@@ -6,7 +6,8 @@
     "pages/search/search",
     "pages/setting/setting",
     "pages/data/data",
-    "pages/search/wordDetail/wordDetail"
+    "pages/search/wordDetail/wordDetail",
+    "pages/book/book"
   ],
   "entryPagePath": "pages/index/index",
   "window": {
@@ -19,5 +20,7 @@
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents"
+  "lazyCodeLoading": "requiredComponents",
+  "onReachBottomDistance": 0,
+  "renderer": "skyline"
 }

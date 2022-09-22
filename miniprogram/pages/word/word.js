@@ -109,7 +109,7 @@ Page({
                     const {wordList} = wordData
                     console.log(wordList)
                     if (wordList.length === 0) {
-                        this.setData({
+                        page.setData({
                             isListEmpty: true
                         })
                         return

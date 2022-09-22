@@ -1,33 +1,35 @@
-<view class="page cover-box">
-    <view class="title_layout">
-        <view class="title">{{word}}
-            <image class="add_note_book" bind:tap="setNoteBook"
-                   style="background: {{inNotebook? '#FFCB33':'#4D5E80'}};mask-image:url('../../src/notebook.svg');-webkit-mask-image:url('../../src/notebook.svg');-moz-mask-image:url('../../src/notebook.svg') "
-            />
+<view class="page">
+    <view class="cover-box">
+        <view class="title_layout">
+            <view class="title">{{word}}
+                <image wx:if="{{item!==''}}" class="add_note_book" bind:tap="setNoteBook"
+                       style="background: {{inNotebook? '#FFCB33':'#4D5E80'}};mask-image:url('../../src/notebook.svg');-webkit-mask-image:url('../../src/notebook.svg');-moz-mask-image:url('../../src/notebook.svg') "
+                />
+            </view>
+            <text class="sub_title" bind:tap="playVoice">{{phonetic}}</text>
         </view>
-        <text class="sub_title" bind:tap="playVoice">{{phonetic}}</text>
+
+        <view style="card-item">
+            <view wx:key="index" wx:for="{{wordTranslation}}">
+                <view data-view-id="{{index}}" class="button" style="background:{{wordBg[index].background}}"
+                      bind:tap="refresh">
+                    <mp-loading wx:if="{{item===''}}" ext-class="loading_style" type="dot-gray"
+                                animated="{{animated}}"></mp-loading>
+                    <text wx:else class="card-text" style="color:{{wordBg[index].textColor}}">{{item}}</text>
+                </view>
+            </view>
+
+        </view>
     </view>
 
-    <view style="display: block; text-align: center; margin-top: 20px;">
-        <view wx:key="index" wx:for="{{wordTranslation}}">
-            <view data-view-id="{{index}}" class="button" style="background:{{wordBg[index].background}}"
-                  bind:tap="refresh">
-                <mp-loading wx:if="{{item===''}}" ext-class="loading_style" type="dot-gray"
-                            animated="{{animated}}"></mp-loading>
-                <text wx:else style="color:{{wordBg[index].textColor}}">{{item}}</text>
-            </view>
+    <view class="footer_container">
+        <view class="fab" wx:if="{{isChoose}}" bind:tap="next">
+            <text class="fab_text" wx:if="{{afterChange}}">下一个</text>
+            <text class="fab_text" wx:else>提交</text>
         </view>
-        <view class="footer_container">
-            <view class="fab" wx:if="{{isChoose}}" bind:tap="next">
-                <text class="fab_text" wx:if="{{afterChange}}">下一个</text>
-                <text class="fab_text" wx:else>提交</text>
-            </view>
-        </view>
-
     </view>
-
-    <mp-dialog title="提示" show="{{isListEmpty}}" bindbuttontap="back" buttons="{{dialogButton}}">
-        <view>你还没有学习任何单词，请学习单词后再来进行复习</view>
-    </mp-dialog>
 </view>
+<mp-dialog title="提示" show="{{isListEmpty}}" bindbuttontap="back" buttons="{{dialogButton}}">
+    <view>你还没有学习任何单词，请学习单词后再来进行复习</view>
+</mp-dialog>
 

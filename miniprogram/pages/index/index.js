@@ -181,7 +181,7 @@ Page({
         nicknameDialog: false,
         nicknameInput: '',
 
-        bookName: '还未选择图书',
+        bookName: '还未选择',
         bookTextColor: '#263544',
         bookBackgroundColor: '#26354433'
     },
@@ -243,16 +243,21 @@ Page({
         )
     },
 
+    openBook() {
+        openPage("../book/book")
+    },
+
     openData() {
-        openPage("../data/data")
+        openPage("../data/data", {
+            bookId: this.data.bookId
+        })
     },
 
     openSetting() {
         openPage("../setting/setting", {
             pronunciation: this.data.pronunciation,
             pronounce: this.data.pronounce,
-            source: this.data.source,
-            bookId: this.data.bookId
+            source: this.data.source
         })
     },
 
