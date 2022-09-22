@@ -9,26 +9,21 @@
     padding: 140rpx 50rpx 100rpx;
 }
 
-.title_layout {
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
 .title {
     width: 100%;
     font-style: normal;
     font-weight: 800;
-    font-size: 36px;
-    display: inline-block;
+    font-size: 72rpx;
+    display: flex;
     color: #000000;
+    align-items: center;
 }
 
 .sub_title {
     width: 100%;
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 32rpx;
     display: inline-block;
     color: #000000;
 }

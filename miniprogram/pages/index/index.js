@@ -89,22 +89,28 @@ async function setSetting() {
         app.getToken()
     )
 
-    let pronunciation, pronounce, source;
+    let pronunciation, pronounce, source, reviewNum, learnNum;
     if (userData.data.settings === '{}') {
         pronunciation = 0
         pronounce = false
         source = 0
+        reviewNum = 10
+        learnNum = 10
     } else {
         let settings = JSON.parse(userData.data.settings)
         pronunciation = settings.pronunciation
         pronounce = settings.pronounce
         source = settings.source
+        reviewNum = settings.reviewNum
+        learnNum = settings.learnNum
     }
 
     page.setData({
         pronunciation: pronunciation,
         pronounce: pronounce,
-        source: source
+        source: source,
+        reviewNum: reviewNum,
+        learnNum: learnNum
     })
     console.log(page.data.pronunciation)
 }
@@ -257,7 +263,9 @@ Page({
         openPage("../setting/setting", {
             pronunciation: this.data.pronunciation,
             pronounce: this.data.pronounce,
-            source: this.data.source
+            source: this.data.source,
+            reviewNum: this.data.reviewNum,
+            learnNum: this.data.learnNum
         })
     },
 
@@ -270,7 +278,9 @@ Page({
             pronunciation: this.data.pronunciation,
             pronounce: this.data.pronounce,
             source: this.data.source,
-            bookId: this.data.bookId
+            bookId: this.data.bookId,
+            reviewNum: this.data.reviewNum,
+            learnNum: this.data.learnNum
         })
     },
 
@@ -279,7 +289,9 @@ Page({
             pronunciation: this.data.pronunciation,
             pronounce: this.data.pronounce,
             source: this.data.source,
-            bookId: this.data.bookId
+            bookId: this.data.bookId,
+            reviewNum: this.data.reviewNum,
+            learnNum: this.data.learnNum
         })
     }
 

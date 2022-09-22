@@ -8,10 +8,10 @@
     left: 50%;
     transform: translateX(-50%);
     position: absolute;
-    padding: 16px 64px;
+    padding: 32rpx 128rpx;
 
     background: #8833FF;
-    box-shadow: 0 10px 30px rgba(136, 51, 255, 0.2);
+    box-shadow: 0 20rpx 60rpx rgba(136, 51, 255, 0.2);
     border-radius: 120px;
 }
 
@@ -21,10 +21,10 @@
     bottom: 0;
 
     width: 100%;
-    height: 54px;
+    height: 108rpx;
 
     display: table-cell;
-    margin-bottom: 54px;
+    margin-bottom: 108rpx;
     text-align: center;
 }
 
@@ -33,6 +33,5 @@
 
     font-style: normal;
     font-weight: 600;
-    font-size: 20px;
-    line-height: 20px;
+    font-size: 30rpx;
 }

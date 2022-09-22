@@ -1,17 +1,36 @@
 <view class="cover-box">
     <mp-cells title="开关">
-        <mp-cell title="单词发音">
-            <switch slot="footer" checked="{{pronounce}}" inline="true" bindchange="pronounce"/>
+
+        <mp-cell title="每日单词学习数量" footer="{{nums[learnNum]}}">
+            <picker bindchange="bindLearnChange" header-text="每日单词学习数量" value="{{learnNum}}"
+                    range="{{nums}}">
+                <view class="weui-select"/>
+            </picker>
+        </mp-cell>
+
+        <mp-cell title="每日单词复习数量" footer="{{nums[reviewNum]}}">
+            <picker bindchange="bindReviewChange" header-text="每日单词复习数量" value="{{reviewNum}}"
+                    range="{{nums}}">
+                <view class="weui-select"/>
+            </picker>
+        </mp-cell>
+        <mp-cell title="单词自动发音">
+            <switch slot="footer" checked="{{pronounce}}" bindchange="pronounce"/>
         </mp-cell>
 
         <mp-cell title="单词发音" footer="{{pronunciations[pronunciation]}}">
             <picker bindchange="bindPronunciationChange" header-text="单词发音" value="{{pronunciation}}"
-                    range="{{pronunciations}}"/>
+                    range="{{pronunciations}}">
+                <view class="weui-select"/>
+            </picker>
         </mp-cell>
         <mp-cell title="单词发音音源" footer="{{uri[source]}}">
             <picker bindchange="bindSourceChange" header-text="音源" value="{{source}}"
-                    range="{{uri}}"/>
+                    range="{{uri}}">
+                <view class="weui-select"/>
+            </picker>
         </mp-cell>
-        <mp-cell title="版本号" inline="true" footer="1.0.2"></mp-cell>
+
+        <mp-cell value="版本号" footer="1.0.2"></mp-cell>
     </mp-cells>
 </view>

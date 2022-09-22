@@ -1,12 +1,26 @@
 const app = getApp();
 const userApi = require("../../utils/userApi.js");
 let page;
+
+async function updateSetting() {
+    await userApi.changeUserSetting(
+        app.getUserId(), app.getToken(), {
+            pronunciation: page.data.pronunciation,
+            pronounce: page.data.pronounce,
+            source: page.data.source,
+            learnNum: page.data.learnNum,
+            reviewNum: page.data.reviewNum
+        }
+    )
+}
+
 Page({
     data: {
         pronunciations: ['英式', '美式'],
         pronunciation: 0,
         books: [],
 
+        nums: Array.from({length: 19}, (item, index) => index + 1),
         showTopTips: false,
         message: '',
         type: '',
@@ -22,7 +36,9 @@ Page({
             page.setData({
                 pronunciation: data.data.pronunciation,
                 pronounce: data.data.pronounce,
-                source: data.data.source
+                source: data.data.source,
+                learnNum: data.data.learnNum,
+                reviewNum: data.data.reviewNum
             })
         })
 
@@ -33,13 +49,7 @@ Page({
         this.setData({
             pronounce: event.detail.value
         })
-        await userApi.changeUserSetting(
-            app.getUserId(), app.getToken(), {
-                pronunciation: this.data.pronunciation,
-                pronounce: this.data.pronounce,
-                source: this.data.source
-            }
-        )
+        await updateSetting()
     },
 
     async bindPronunciationChange(e) {
@@ -47,13 +57,7 @@ Page({
             pronunciation: e.detail.value
         })
 
-        await userApi.changeUserSetting(
-            app.getUserId(), app.getToken(), {
-                pronunciation: this.data.pronunciation,
-                pronounce: this.data.pronounce,
-                source: this.data.source
-            }
-        )
+        await updateSetting()
     },
 
     async bindSourceChange(e) {
@@ -62,13 +66,21 @@ Page({
         })
         console.log(this.data.source)
 
-        await userApi.changeUserSetting(
-            app.getUserId(), app.getToken(), {
-                pronunciation: this.data.pronunciation,
-                pronounce: this.data.pronounce,
-                source: this.data.source
-            }
-        )
+        await updateSetting()
+    },
+
+    async bindReviewChange(event) {
+        this.setData({
+            reviewNum: event.detail.value
+        })
+        await updateSetting()
+    },
+    async bindLearnChange(event) {
+        this.setData({
+            learnNum: event.detail.value
+        })
+        await updateSetting()
+
     },
 
     onUnload() {
@@ -81,7 +93,9 @@ Page({
         prevPage.setData({
             pronunciation: this.data.pronunciation,
             pronounce: this.data.pronounce,
-            source: this.data.source
+            source: this.data.source,
+            learnNum: this.data.learnNum,
+            reviewNum: this.data.reviewNum
         })
     }
 });

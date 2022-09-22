@@ -18,13 +18,15 @@ async function getData() {
             return await wordApi.getLearningData(
                 app.getToken(),
                 app.getUserId(),
-                page.data.bookId
+                page.data.bookId,
+                page.data.learnNum
             )
         case 'review':
             return await wordApi.getReviewData(
                 app.getToken(),
                 app.getUserId(),
-                page.data.bookId
+                page.data.bookId,
+                page.data.reviewNum
             )
     }
 }
@@ -66,10 +68,22 @@ function getWord(wordData) {
             i++;
         }
     }
+    if (wordList[0].repeatTimes === undefined) {
+        wordList[0].repeatTimes = 0
+        console.log(wordList[0].repeatTimes)
+    }
 
     page.setData({
         wordTranslation: tempList
     })
+
+    let repeatTimes = [false, false, false]
+    repeatTimes[wordList[0].repeatTimes] = true
+
+    page.setData({
+        repeatTimes: repeatTimes
+    })
+    console.log(page.data.repeatTimes)
     isLoading = false
 }
 
@@ -99,7 +113,9 @@ Page({
                 pronunciation: data.data.pronunciation,
                 pronounce: data.data.pronounce,
                 source: data.data.source,
-                bookId: data.data.bookId
+                bookId: data.data.bookId,
+                learnNum: data.data.learnNum,
+                reviewNum: data.data.reviewNum
             })
 
             wordType = options.type
@@ -118,7 +134,6 @@ Page({
                 }
             );
         })
-        console.log('eventChannel 数据：', page.data)
     },
     refresh(event) {
         const {wordList} = wordData
@@ -162,16 +177,22 @@ Page({
                     temp[chooseNum].textColor = "#FFFFFF"
                     wordList.push(wordList.shift());
                 } else {
-                    await wordApi.addLearningRecord(
-                        app.getUserId(),
-                        [{
-                            wordId: wordList[0].wordId
-                        }],
-                        app.getToken()
-                    )
-                    // 单词数量++
-                    wordNum++;
-                    wordList.shift();
+                    if (tempList.repeatTimes === 2) {
+                        await wordApi.addLearningRecord(
+                            app.getUserId(),
+                            [{
+                                wordId: wordList[0].wordId
+                            }],
+                            app.getToken()
+                        )
+                        // 单词数量++
+                        wordNum++;
+                        wordList.shift();
+                    } else {
+                        wordList[0].repeatTimes = wordList[0].repeatTimes + 1
+                        console.log(wordList[0].repeatTimes)
+                    }
+
                 }
                 temp[right].background = "#07C160"
                 temp[right].textColor = "#FFFFFF"
@@ -212,7 +233,7 @@ Page({
                 inNotebook: wordList[0].inNotebook
             }
         )
-        console.log(page.data.inNotebook)
+
         wordApi.toggleAddToNB(
             app.getUserId(),
             wordList[0].wordId,

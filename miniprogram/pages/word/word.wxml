@@ -2,23 +2,24 @@
     <view class="cover-box">
         <view class="title_layout">
             <view class="title">{{word}}
-                <image wx:if="{{item!==''}}" class="add_note_book" bind:tap="setNoteBook"
-                       style="background: {{inNotebook? '#FFCB33':'#4D5E80'}};mask-image:url('../../src/notebook.svg');-webkit-mask-image:url('../../src/notebook.svg');-moz-mask-image:url('../../src/notebook.svg') "
+                <view style="width: 12rpx;">
+                    <view wx:if="{{item!==''}}">
+                        <view wx:key="index" style="background: {{repeatTimes[index]? '#29CC39':'#4D5E8033'}}"
+                              class="circle" wx:for="{{repeatTimes}}"></view>
+                    </view>
+                </view>
+                <view wx:if="{{item!==''}}" class="add_note_book" bind:tap="setNoteBook"
+                      style="background: {{inNotebook? '#FFCB33':'#4D5E80'}};mask-image:url('../../src/notebook.svg');-webkit-mask-image:url('../../src/notebook.svg');-moz-mask-image:url('../../src/notebook.svg') "
                 />
             </view>
             <text class="sub_title" bind:tap="playVoice">{{phonetic}}</text>
         </view>
-
-        <view style="card-item">
-            <view wx:key="index" wx:for="{{wordTranslation}}">
-                <view data-view-id="{{index}}" class="button" style="background:{{wordBg[index].background}}"
-                      bind:tap="refresh">
-                    <mp-loading wx:if="{{item===''}}" ext-class="loading_style" type="dot-gray"
-                                animated="{{animated}}"></mp-loading>
-                    <text wx:else class="card-text" style="color:{{wordBg[index].textColor}}">{{item}}</text>
-                </view>
-            </view>
-
+        <view wx:key="index" wx:for="{{wordTranslation}}" data-view-id="{{index}}" class="button"
+              style="background:{{wordBg[index].background}}"
+              bind:tap="refresh">
+            <mp-loading wx:if="{{item===''}}" ext-class="loading_style" type="dot-gray"
+                        animated="{{animated}}"></mp-loading>
+            <text wx:else class="card-text" style="color:{{wordBg[index].textColor}}">{{item}}</text>
         </view>
     </view>
 
