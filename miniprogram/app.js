@@ -56,11 +56,13 @@ App({
         return userId
     },
 
-    getNickname() {
-        if (nickname === '' || !isLogin) {
+    async getNickname() {
+        if (!isLogin) {
+            return '词酷用户';
+        } else if (nickname === '') {
             let random = Math.floor(Math.random() * 10000);
             let name = '词酷用户#' + random
-            userApi.changeUserNickname(
+            await userApi.changeUserNickname(
                 this.getToken(),
                 this.getUserId(),
                 name
@@ -72,12 +74,12 @@ App({
         }
     },
 
-    getAvatarPic() {
+    async getAvatarPic() {
         if (!isLogin) {
             return "https://api.multiavatar.com/cicool.svg"
         } else if (avatarPic === '') {
             let avatarPic = "https://api.multiavatar.com/" + this.getNickname() + ".svg"
-            userApi.changeUserAvatarPic(
+            await userApi.changeUserAvatarPic(
                 this.getToken(),
                 this.getUserId(),
                 avatarPic

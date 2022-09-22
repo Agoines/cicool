@@ -19,14 +19,14 @@ async function getData() {
                 app.getToken(),
                 app.getUserId(),
                 page.data.bookId,
-                page.data.learnNum
+                page.data.learnNum + 1
             )
         case 'review':
             return await wordApi.getReviewData(
                 app.getToken(),
                 app.getUserId(),
                 page.data.bookId,
-                page.data.reviewNum
+                page.data.reviewNum + 1
             )
     }
 }

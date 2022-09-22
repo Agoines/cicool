@@ -34,19 +34,18 @@ let dailySumLine;
  * @returns {Promise<void>}
  */
 async function init() {
+    let nickname = await app.getNickname()
+    let avatarPic = await app.getAvatarPic()
     // 设置名称和头像
     page.setData({
-        nickname: app.getNickname(),
-        avatarPic: app.getAvatarPic()
+        nickname: nickname,
+        avatarPic: avatarPic
     })
-
-    console.log("初始化中 UserId", app.getUserId(), "初始化中 Token", app.getToken())
-
     await statisticApi.getAllLearnData(
         app.getUserId(),
         app.getToken()
     ).then(allLearnData => {
-            const {master} = allLearnData
+        const {master} = allLearnData
             page.setData({
                 learnData: master
             })
@@ -94,8 +93,8 @@ async function setSetting() {
         pronunciation = 0
         pronounce = false
         source = 0
-        reviewNum = 10
-        learnNum = 10
+        reviewNum = 9
+        learnNum = 9
     } else {
         let settings = JSON.parse(userData.data.settings)
         pronunciation = settings.pronunciation
@@ -185,7 +184,6 @@ Page({
 
         nicknameDialog: false,
         nicknameInput: '',
-
         bookName: '还未选择',
         bookTextColor: '#263544',
         bookBackgroundColor: '#26354433'
