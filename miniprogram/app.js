@@ -58,7 +58,15 @@ App({
 
     getNickname() {
         if (nickname === '' || !isLogin) {
-            return '词酷用户#8848'
+            let random = Math.floor(Math.random() * 10000);
+            let name = '词酷用户#' + random
+            userApi.changeUserNickname(
+                this.getToken(),
+                this.getUserId(),
+                name
+            )
+            return name
+
         } else {
             return nickname
         }
@@ -68,7 +76,13 @@ App({
         if (!isLogin) {
             return "https://api.multiavatar.com/cicool.svg"
         } else if (avatarPic === '') {
-            return "https://api.multiavatar.com/" + userId + ".svg"
+            let avatarPic = "https://api.multiavatar.com/" + this.getNickname() + ".svg"
+            userApi.changeUserAvatarPic(
+                this.getToken(),
+                this.getUserId(),
+                avatarPic
+            )
+            return avatarPic
         } else {
             return avatarPic
         }

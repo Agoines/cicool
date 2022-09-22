@@ -112,7 +112,6 @@ async function setSetting() {
         reviewNum: reviewNum,
         learnNum: learnNum
     })
-    console.log(page.data.pronunciation)
 }
 
 /**

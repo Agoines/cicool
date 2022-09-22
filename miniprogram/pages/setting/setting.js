@@ -64,8 +64,6 @@ Page({
         this.setData({
             source: e.detail.value
         })
-        console.log(this.data.source)
-
         await updateSetting()
     },
 
