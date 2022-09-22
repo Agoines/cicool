@@ -31,6 +31,6 @@
             </picker>
         </mp-cell>
 
-        <mp-cell value="版本号" footer="1.0.2"></mp-cell>
+        <mp-cell value="版本号" footer="1.0.3"></mp-cell>
     </mp-cells>
 </view>
