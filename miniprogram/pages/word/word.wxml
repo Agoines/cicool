@@ -14,7 +14,7 @@
             </view>
             <view class="sub_title" bind:tap="playVoice">
                 <text>{{phonetic}}</text>
-                <image class="property" src="../../src/property.svg"></image>
+                <image class="property" src="../../src/play.svg"></image>
             </view>
         </view>
         <view wx:key="index" wx:for="{{wordTranslation}}" data-view-id="{{index}}" class="button"

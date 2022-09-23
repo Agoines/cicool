@@ -1,22 +1,26 @@
-<view class="cover-box">
-    <mp-toptips ext-class="toptips" msg="{{message}}" type="{{type}}" show="{{showTopTips}}"
-                delay="{{2000}}"></mp-toptips>
-    <view class="page-section-title">单词书：{{booksData[bookId - 1].name}}</view>
-    <scroll-view style="height:300rpx;background:#00000000;width:100%;"
-                 scroll-x="true">
-        <view style="width: 2340rpx; height:300rpx;">
+<view class="page">
+    <view class="cover-box">
+        <mp-toptips ext-class="toptips" msg="{{message}}" type="{{type}}" show="{{showTopTips}}"
+                    delay="{{2000}}"></mp-toptips>
+        <view class="sub_title ">单词书：{{booksData[bookId - 1].name}}</view>
+        <scroll-view class="book-scroll" scroll-y="true">
             <view wx:for="{{booksData}}"
                   data-text="{{item.bookId}}"
                   bindtap="handleTap"
                   class="book-item"
-                  style="background:{{item.color + '0d'}}; border-style:solid; border-width:0.2px;border-color:{{item.color}};"
                   wx:key="index">
-                <view class="content">
+                <view style="background:{{item.color}};" class="book-icon">
+                    <image class="book-icon-style" src="../../src/book.svg"/>
+                </view>
+                <view class="book-content">
                     <text class="book-text" style="color:{{item.color}}">{{item.name}}</text>
                     <text class="book-description" style="color:#4D5E80">{{item.description}}</text>
                 </view>
-
+                <view wx:if="{{bookId === item.bookId}}" class="choose" style="background-color: {{item.color + '22'}}">
+                    <text style="color: {{item.color}}">已选择</text>
+                </view>
             </view>
-        </view>
-    </scroll-view>
+        </scroll-view>
+
+    </view>
 </view>

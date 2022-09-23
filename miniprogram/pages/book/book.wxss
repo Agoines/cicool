@@ -1,24 +1,60 @@
+.book-scroll {
+    margin-top: 36rpx;
+    max-height: 1275rpx;
+}
+
 .book-item {
-    width: 240rpx;
-    display: inline-block;
-    text-align: center;
-    height: 280rpx;
-    font-size: 50rpx;
-    margin: 10rpx;
+    display: flex;
+    align-items: center;
+    height: 160rpx;
+    margin-bottom: 20rpx;
+    margin-top: 20rpx;
     background-size: cover;
     border-radius: 18rpx;
-    background: #fff
+    background: #fff;
+    padding: 10rpx 40rpx;
+}
+
+.book-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72rpx;
+    height: 72rpx;
+    border-radius: 100%;
+}
+
+.book-icon-style {
+    width: 36rpx;
+    height: 36rpx;
+    border-radius: 100%;
+}
+
+.book-content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 36rpx;
 }
 
 .book-text {
-    float: left;
-    margin-top: 24rpx;
-    color: #4e525eAA;
-    font-size: 36rpx;
+    font-style: normal;
+    font-weight: 700;
+    color: #141416;
+    font-size: 32rpx;
 }
 
 .book-description {
-    margin-top: 12rpx;
     color: #4e525e99;
-    font-size: 32rpx;
+    font-size: 24rpx;
+}
+
+.choose {
+    padding: 12rpx 24rpx;
+    font-size: 24rpx;
+    text-align: center;
+    border-radius: 56rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
 }

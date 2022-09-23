@@ -147,13 +147,13 @@ Page({
     },
 
     openBook() {
-        openPage("../book/book")
+        openPage("../book/book", {
+            bookId: this.data.bookId
+        })
     },
 
     openData() {
-        openPage("../data/data", {
-            bookId: this.data.bookId
-        })
+        openPage("../data/data")
     },
 
     openSetting() {
