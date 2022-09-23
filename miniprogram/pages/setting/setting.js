@@ -31,8 +31,6 @@ Page({
 
     async onLoad() {
         page = this
-
-
         const eventChannel = this.getOpenerEventChannel()
         await eventChannel.on('setData', function (data) {
             page.setData({

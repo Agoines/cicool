@@ -16,9 +16,11 @@ Page({
                 })
             }
         )
-
-        page.setData({
-            bookId: data.data.bookId
+        const eventChannel = this.getOpenerEventChannel()
+        await eventChannel.on('setData', function (data) {
+            page.setData({
+                bookId: data.data.bookId
+            })
         })
     },
 
@@ -42,14 +44,14 @@ Page({
             let prevPage = pages[pages.length - 2];
 
             this.setData({
-                bookId: (item + 1)
-            })
-            prevPage.setData({
-                bookName: this.data.booksData[item].name
-            })
-            this.setData({
                 bookId: this.data.booksData[item].bookId
             })
+
+            prevPage.setData({
+                bookName: this.data.booksData[item].name,
+                bookId: this.data.booksData[item].bookId
+            })
+
         } catch (err) {
             this.setData({
                     message: '修改失败 ' + err,

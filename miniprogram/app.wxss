@@ -9,6 +9,10 @@
     padding: 140rpx 50rpx 100rpx;
 }
 
+.toptips {
+    margin-top: 140rpx;
+}
+
 .title {
     width: 100%;
     font-style: normal;

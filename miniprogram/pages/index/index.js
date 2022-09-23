@@ -61,8 +61,6 @@ async function init() {
                 const {book} = bookData
                 page.setData({
                     bookName: '词书：' + book.name,
-                    bookTextColor: book.color,
-                    bookBackgroundColor: book.color + '33'
                 })
             }
         )
