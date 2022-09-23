@@ -44,7 +44,7 @@
 }
 
 .book-description {
-    color: #4e525e99;
+    color: #777E90;
     font-size: 24rpx;
 }
 
