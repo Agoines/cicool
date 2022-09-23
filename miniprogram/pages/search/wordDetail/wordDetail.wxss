@@ -2,76 +2,74 @@
     display: flex;
     flex-direction: column;
 
-    margin-top: 40px;
-    margin-right: 40px;
-    margin-left: 40px;
+    margin-top: 40rpx;
     /* White */
 
     background: #FFFFFF;
 
-    box-shadow: 0 60px 120px rgba(38, 51, 77, 0.05);
-    border-radius: 20px;
-    padding-bottom: 16px;
+    box-shadow: 0 80rpx 240rpx rgba(38, 51, 77, 0.05);
+    border-radius: 40rpx;
+    padding-bottom: 32rpx;
 }
 
 .card-title {
     color: #4D5E80;
     font-style: normal;
     font-weight: 700;
-    font-size: 28px;
-    padding: 14px 20px 0;
+    font-size: 56rpx;
+    padding: 28rpx 40rpx 0;
 }
 
 .card-title-sub {
     color: #4D5E80;
     font-style: normal;
     font-weight: 700;
-    font-size: 22px;
+    font-size: 44rpx;
 
-    padding: 14px 20px;
+    padding: 28rpx 40rpx;
 }
 
 .card-exchange-item {
     display: flex;
     flex-direction: column;
-    padding: 8px 20px;
-    min-height: 30px;
+    padding: 16rpx 40rpx;
+    min-height: 60rpx;
 }
 
 .card-exchange-item-sub {
     color: #7D8FB3;
     font-style: normal;
-    font-size: 16px;
+    font-size: 32rpx;
     word-break: break-word;
 }
 
 .card-item {
     color: #7D8FB3;
     font-style: normal;
-    font-size: 16px;
+    font-size: 32rpx;
 
-    min-height: 30px;
-    padding: 8px 20px;
+    min-height: 60rpx;
+    padding: 16rpx 40rpx;
     word-break: break-word;
 }
 
 .card-book-list-item {
-    padding: 8px 20px;
+    padding: 16rpx 40rpx;
 }
 
 .card-item-sub {
     color: #7D8FB3;
     font-style: normal;
-    font-size: 16px;
+    font-size: 32rpx;
 
-    padding-right: 12px;
+    padding-right: 24rpx;
     word-break: break-word;
 }
 
 .card-item-sub2 {
     color: #7D8FB3;
     font-style: normal;
-    font-size: 14px;
+    font-size: 28rpx;
 
     word-break: break-word;
 }

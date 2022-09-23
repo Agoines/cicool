@@ -1,10 +1,9 @@
-<view class="page">
-    <view class="page__bd">
+<view style="position: fixed;height: 100%;width: 100%;background: var(--weui-BG-0);">
+    <view class="page__bd" style="padding-top: 140rpx">
         <mp-searchbar placeholder="搜索你想知道的单词" bindselectresult="selectResult"
                       search="{{search}}">
             <mp-cells is="miniprogram_npm/weui-miniprogram/cells/cells">
             </mp-cells>
         </mp-searchbar>
-
     </view>
 </view>

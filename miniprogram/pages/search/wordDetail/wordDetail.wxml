@@ -1,18 +1,20 @@
-<view class="page cover-box">
-    <view class="card">
-        <text class="card-title">{{word}}</text>
-        <text class="card-item">音标：{{phonetic}}</text>
-        <text class="card-item">定义：{{definition}}</text>
-        <view wx:key="index" wx:for="{{exchange}}" class="card-exchange-item">
-            <text class="card-exchange-item-sub">{{item}}</text>
+<view class="page">
+    <view class="cover-box">
+        <view class="card">
+            <text class="card-title">{{word}}</text>
+            <text class="card-item">音标：{{phonetic}}</text>
+            <text class="card-item">定义：{{definition}}</text>
+            <view wx:key="index" wx:for="{{exchange}}" class="card-exchange-item">
+                <text class="card-exchange-item-sub">{{item}}</text>
+            </view>
         </view>
-    </view>
 
-    <view class="card" wx:if="{{bookList===[]}}">
-        <text class="card-title-sub">在以下单词书出现过</text>
-        <view wx:key="index" class="card-book-list-item" wx:for="{{bookList}}">
-            <text class="card-item-sub">{{item.name}}</text>
-            <text class="card-item-sub2">{{item.description}}</text>
+        <view class="card" wx:if="{{bookList===[]}}">
+            <text class="card-title-sub">在以下单词书出现过</text>
+            <view wx:key="index" class="card-book-list-item" wx:for="{{bookList}}">
+                <text class="card-item-sub">{{item.name}}</text>
+                <text class="card-item-sub2">{{item.description}}</text>
+            </view>
         </view>
     </view>
 </view>

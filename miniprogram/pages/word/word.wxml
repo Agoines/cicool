@@ -31,6 +31,6 @@
     </view>
 </view>
 <mp-dialog title="提示" show="{{isListEmpty}}" bindbuttontap="back" buttons="{{dialogButton}}">
-    <view>你还没有学习任何单词，请学习单词后再来进行复习</view>
+    <view>你没有任何需要{{isLearn ? '学习' : '复习'}}的单词</view>
 </mp-dialog>
 

@@ -78,7 +78,7 @@ App({
         if (!isLogin) {
             return "https://api.multiavatar.com/cicool.svg"
         } else if (avatarPic === '') {
-            let avatarPic = "https://api.multiavatar.com/" + this.getNickname() + ".svg"
+            let avatarPic = "https://api.multiavatar.com/" + await this.getNickname() + ".svg"
             await userApi.changeUserAvatarPic(
                 this.getToken(),
                 this.getUserId(),

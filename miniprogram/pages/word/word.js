@@ -15,18 +15,24 @@ async function getData() {
     console.log("bookId 是", page.data.bookId)
     switch (wordType) {
         case 'learn':
+            page.setData({
+                isLearn: true
+            })
             return await wordApi.getLearningData(
                 app.getToken(),
                 app.getUserId(),
                 page.data.bookId,
-                page.data.learnNum + 1
+                parseInt(page.data.learnNum, 10) + 1
             )
         case 'review':
+            page.setData({
+                isLearn: false
+            })
             return await wordApi.getReviewData(
                 app.getToken(),
                 app.getUserId(),
                 page.data.bookId,
-                page.data.reviewNum + 1
+                parseInt(page.data.reviewNum, 10) + 1
             )
     }
 }
@@ -177,20 +183,20 @@ Page({
                     temp[chooseNum].textColor = "#FFFFFF"
                     wordList.push(wordList.shift());
                 } else {
-                    if (tempList.repeatTimes === 2) {
-                        await wordApi.addLearningRecord(
-                            app.getUserId(),
-                            [{
-                                wordId: wordList[0].wordId
-                            }],
-                            app.getToken()
-                        )
-                        // 单词数量++
+
+                    wordList[0].repeatTimes = wordList[0].repeatTimes + 1
+                    await wordApi.addLearningRecord(
+                        app.getUserId(),
+                        [{
+                            wordId: wordList[0].wordId
+                        }],
+                        app.getToken(),
+                        wordList[0].repeatTimes,
+                        tempList.repeatTimes === 3
+                    )
+                    if (tempList.repeatTimes === 3) {
                         wordNum++;
                         wordList.shift();
-                    } else {
-                        wordList[0].repeatTimes = wordList[0].repeatTimes + 1
-                        console.log(wordList[0].repeatTimes)
                     }
 
                 }
