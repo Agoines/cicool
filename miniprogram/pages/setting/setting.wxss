@@ -8,6 +8,22 @@
     font-size: 17px;
 }
 
+.avatarPic {
+    width: 80rpx;
+    height: 80rpx;
+    border: 10rpx solid rgba(255, 255, 255, 1);
+    border-radius: 50%
+}
+
+.avatar-wrapper {
+    border-radius: 50%;
+    width: 80rpx;
+    height: 80rpx;
+    margin: 0;
+    padding: 0;
+    max-width: 80rpx;
+}
+
 .content {
     display: flex;
     justify-content: center;

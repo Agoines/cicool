@@ -45,9 +45,7 @@ Page({
                 bookId: (item + 1)
             })
             prevPage.setData({
-                bookName: this.data.booksData[item].name,
-                bookTextColor: this.data.booksData[item].color,
-                bookBackgroundColor: this.data.booksData[item].color + '33',
+                bookName: this.data.booksData[item].name
             })
             this.setData({
                 bookId: this.data.booksData[item].bookId

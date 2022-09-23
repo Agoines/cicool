@@ -24,7 +24,9 @@ Page({
         showTopTips: false,
         message: '',
         type: '',
-        uri: ['有道词典', 'gstatic']
+        uri: ['有道词典', 'gstatic'],
+        nicknameDialog: false,
+        nicknameInput: '',
     },
 
     async onLoad() {
@@ -38,11 +40,45 @@ Page({
                 pronounce: data.data.pronounce,
                 source: data.data.source,
                 learnNum: data.data.learnNum,
-                reviewNum: data.data.reviewNum
+                reviewNum: data.data.reviewNum,
+                avatarPic: data.data.avatarPic,
+                nickname: data.data.nickname,
             })
         })
 
 
+    },
+
+    onChooseNickname() {
+        this.setData({
+            nicknameDialog: true
+        })
+    },
+
+    nickNameDialogCancel() {
+        this.setData({
+            nicknameDialog: false
+        })
+    },
+
+    async nickNameDialogOk() {
+        this.setData({
+            nickname: this.data.nicknameInput,
+            nicknameDialog: false
+        })
+
+        await userApi.changeUserNickname(
+            app.getToken(),
+            app.getUserId(),
+            this.data.nicknameInput
+        )
+    },
+
+    async onChooseAvatar(e) {
+        this.setData({
+            avatarPic: e.detail.avatarUrl,
+        })
+        await userApi.changeUserAvatarPic(app.getToken(), app.getUserId(), e.detail.avatarUrl)
     },
 
     async pronounce(event) {
@@ -93,7 +129,9 @@ Page({
             pronounce: this.data.pronounce,
             source: this.data.source,
             learnNum: this.data.learnNum,
-            reviewNum: this.data.reviewNum
+            reviewNum: this.data.reviewNum,
+            avatarPic: this.data.avatarPic,
+            nickname: this.data.nickname
         })
     }
 });

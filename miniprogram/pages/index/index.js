@@ -1,7 +1,6 @@
 const statisticApi = require("../../utils/statisticApi.js");
 const userApi = require("../../utils/userApi.js");
 
-const FundCharts = require('../../utils/FundCharts.min.js');
 const app = getApp()
 // 替代下文 page 中 this
 let page
@@ -24,10 +23,6 @@ const openPage = (pageName, data) => {
         })
     }
 }
-
-
-// 绘制图形所需
-let dailySumLine;
 
 /**
  * 初始化头像以及单词次数
@@ -113,53 +108,6 @@ async function setSetting() {
     })
 }
 
-/**
- * 获取数据并绘制线条
- * @returns {Promise<void>}
- */
-async function drawLine() {
-    let now = new Date().getTime();
-    let date = new Date(now - 7 * 24 * 60 * 60 * 1000).getTime();
-
-    const startDate = Math.floor(date / 1000);
-    const endDate = Math.floor(now / 1000);
-
-    const dailySumByDate = await statisticApi.getDailySumByDate(
-        app.getUserId(),
-        app.getToken(),
-        startDate,
-        endDate
-    )
-
-    let xArr = [];
-    let learnSum = [], reviewSum = []
-    const {dailySum} = dailySumByDate
-    for (let sum in dailySum) {
-        xArr.push(new Date(now - (7 - sum) * 24 * 60 * 60 * 1000).toLocaleDateString())
-        const {learn, review} = dailySum[sum]
-        learnSum.push(learn)
-        reviewSum.push(review)
-    }
-
-    const {line} = FundCharts;
-    dailySumLine = new line({
-        id: 'chart-line',
-        width: 375,
-        height: 212,
-        allGradient: true,    // 设置面积渐变
-        curveLine: true,
-        xaxis: xArr,
-        yaxisfunc: data => data.toFixed(0),
-        range: {min: 0, max: Math.max(...learnSum, ...reviewSum) + 2},
-        datas: [
-            learnSum,
-            reviewSum
-        ]
-    });
-
-    dailySumLine.init();
-}
-
 
 function openWord(type, data) {
     if (page.data.bookId !== -1) {
@@ -182,11 +130,7 @@ Page({
         bookId: 0,
         learnData: 0,
 
-        nicknameDialog: false,
-        nicknameInput: '',
-        bookName: '还未选择',
-        bookTextColor: '#263544',
-        bookBackgroundColor: '#26354433'
+        bookName: '还未选择'
     },
 
     onLoad: async function () {
@@ -196,54 +140,12 @@ Page({
         app.afterLogin(async function () {
             // 初始化
             await init()
-            // 绘制线条
-            await drawLine()
             // 修改设置
             await setSetting()
             await wx.hideNavigationBarLoading();
             isLoading = false
         })
 
-    },
-
-    async onShow() {
-        if (!isLoading) {
-            await drawLine()
-        }
-
-
-    },
-
-    onChooseNickname() {
-        this.setData({
-            nicknameDialog: true
-        })
-    },
-
-    async onChooseAvatar(e) {
-        this.setData({
-            avatarPic: e.detail.avatarUrl,
-        })
-        await userApi.changeUserAvatarPic(app.getToken(), app.getUserId(), e.detail.avatarUrl)
-    },
-
-    nickNameDialogCancel() {
-        this.setData({
-            nicknameDialog: false
-        })
-    },
-
-    async nickNameDialogOk() {
-        this.setData({
-            nickname: this.data.nicknameInput,
-            nicknameDialog: false
-        })
-
-        await userApi.changeUserNickname(
-            app.getToken(),
-            app.getUserId(),
-            this.data.nicknameInput
-        )
     },
 
     openBook() {
@@ -262,7 +164,9 @@ Page({
             pronounce: this.data.pronounce,
             source: this.data.source,
             reviewNum: this.data.reviewNum,
-            learnNum: this.data.learnNum
+            learnNum: this.data.learnNum,
+            avatarPic: this.data.avatarPic,
+            nickname: this.data.nickname
         })
     },
 
