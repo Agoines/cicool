@@ -2,7 +2,7 @@
     <mp-cells title="个人信息">
         <mp-cell title="个人头像">
             <button slot="footer" class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-                <image class="avatarPic" mode="aspectFill" src="{{avatarPic}}"></image>
+                <image class="avatarPic" src="{{avatarPic}}"></image>
             </button>
         </mp-cell>
         <mp-cell title="昵称" bind:tap="onChooseNickname" footer="{{nickname}}">
@@ -10,37 +10,37 @@
     </mp-cells>
     <mp-cells title="开关">
 
-        <mp-cell title="每日单词学习数量" bindchange="bindLearnChange" footer="{{nums[learnNum]}}">
-            <picker header-text="每日单词学习数量" value="{{learnNum}}"
+        <mp-cell title="每日单词学习数量" footer="{{nums[learnNum]}}">
+            <picker header-text="每日单词学习数量" bindchange="bindLearnChange" value="{{learnNum}}"
                     range="{{nums}}">
                 <view class="weui-select"/>
             </picker>
         </mp-cell>
 
-        <mp-cell title="每日单词复习数量" bindchange="bindReviewChange" footer="{{nums[reviewNum]}}">
-            <picker header-text="每日单词复习数量" value="{{reviewNum}}"
+        <mp-cell title="每日单词复习数量" footer="{{nums[reviewNum]}}">
+            <picker header-text="每日单词复习数量" bindchange="bindReviewChange" value="{{reviewNum}}"
                     range="{{nums}}">
                 <view class="weui-select"/>
             </picker>
         </mp-cell>
-        <mp-cell title="单词自动发音" bindchange="pronounce">
-            <switch slot="footer" checked="{{pronounce}}"/>
+        <mp-cell title="单词自动发音">
+            <switch slot="footer" bindchange="pronounce" checked="{{pronounce}}"/>
         </mp-cell>
 
-        <mp-cell title="单词发音" bindchange="bindPronunciationChange" footer="{{pronunciations[pronunciation]}}">
-            <picker header-text="单词发音" value="{{pronunciation}}"
+        <mp-cell title="单词发音" footer="{{pronunciations[pronunciation]}}">
+            <picker bindchange="bindPronunciationChange" header-text="单词发音" value="{{pronunciation}}"
                     range="{{pronunciations}}">
                 <view class="weui-select"/>
             </picker>
         </mp-cell>
-        <mp-cell title="单词发音音源" bindchange="bindSourceChange" footer="{{uri[source]}}">
-            <picker header-text="音源" value="{{source}}"
+        <mp-cell title="单词发音音源" footer="{{uri[source]}}">
+            <picker bindchange="bindSourceChange" header-text="音源" value="{{source}}"
                     range="{{uri}}">
                 <view class="weui-select"/>
             </picker>
         </mp-cell>
 
-        <mp-cell value="版本号" footer="1.0.3"></mp-cell>
+        <mp-cell value="版本号" footer="1.0.4"></mp-cell>
     </mp-cells>
 </view>
 <mp-halfScreenDialog show="{{nicknameDialog}}" closabled="{{false}}">

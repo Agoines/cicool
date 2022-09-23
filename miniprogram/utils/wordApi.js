@@ -158,7 +158,7 @@ const toggleAddToNB = (userId, wordId, add, token) => {
     })
 }
 
-const addLearningRecord = (userId, record, token, repeatTimes, completed = false) => {
+const addLearningRecord = (userId, record, token) => {
     return new Promise((resolve, reject) => {
         wx.request({
             method: "POST",
@@ -166,9 +166,7 @@ const addLearningRecord = (userId, record, token, repeatTimes, completed = false
 
             data: {
                 userId: userId,
-                record: record,
-                completed: completed,
-                repeatTimes: repeatTimes
+                record: record
             },
 
             header: {

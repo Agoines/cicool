@@ -11,7 +11,6 @@
 .avatarPic {
     width: 80rpx;
     height: 80rpx;
-    border: 10rpx solid rgba(255, 255, 255, 1);
     border-radius: 50%
 }
 

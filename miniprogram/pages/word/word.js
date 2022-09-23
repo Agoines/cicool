@@ -1,6 +1,7 @@
 const wordApi = require("../../utils/wordApi.js");
 const app = getApp();
 let wordData;
+let wordList;
 let right;
 let tempList = ["", "", "", ""]
 let isLoading = true
@@ -37,8 +38,8 @@ async function getData() {
     }
 }
 
-function getWord(wordData) {
-    const {wordList} = wordData
+function getWord() {
+
     page.setData({
             word: wordList[0].word,
             phonetic: wordList[0].phonetic
@@ -76,12 +77,13 @@ function getWord(wordData) {
     }
     if (wordList[0].repeatTimes === undefined) {
         wordList[0].repeatTimes = 0
-        console.log(wordList[0].repeatTimes)
     }
 
     page.setData({
         wordTranslation: tempList
     })
+
+    console.log("第几次", wordList[0].repeatTimes)
 
     let repeatTimes = [false, false, false]
     repeatTimes[wordList[0].repeatTimes] = true
@@ -128,8 +130,7 @@ Page({
             await getData().then(
                 function (data) {
                     wordData = data
-                    const {wordList} = wordData
-                    console.log(wordList)
+                    wordList = wordData.wordList
                     if (wordList.length === 0) {
                         page.setData({
                             isListEmpty: true
@@ -141,8 +142,8 @@ Page({
             );
         })
     },
+
     refresh(event) {
-        const {wordList} = wordData
         if (isLoading || this.data.afterChange) return;
         this.setData({
             isChoose: true
@@ -159,7 +160,6 @@ Page({
         let temp = this.data.wordBg
         temp[chooseNum].background = "#202124"
         temp[chooseNum].textColor = "#FFFFFF"
-        wordList.push(wordList.shift());
         this.setData({
                 wordBg: temp
             }
@@ -174,29 +174,33 @@ Page({
     },
 
     async next() {
-        const {wordList} = wordData
         if (this.data.isChoose) {
             if (!this.data.afterChange) {
+                console.log("前", wordList[0].repeatTimes)
                 let temp = this.data.wordBg
                 if (chooseNum !== right) {
                     temp[chooseNum].background = "#FF4D3C"
                     temp[chooseNum].textColor = "#FFFFFF"
                     wordList.push(wordList.shift());
                 } else {
-
-                    wordList[0].repeatTimes = wordList[0].repeatTimes + 1
+                    console.log("前", wordList[0].repeatTimes)
+                    wordList[0].repeatTimes += 1
+                    console.log("后", wordList[0].repeatTimes)
                     await wordApi.addLearningRecord(
                         app.getUserId(),
                         [{
-                            wordId: wordList[0].wordId
+                            wordId: wordList[0].wordId,
+                            repeatTimes: wordList[0].repeatTimes,
+                            completed: tempList.repeatTimes === 3
                         }],
                         app.getToken(),
-                        wordList[0].repeatTimes,
-                        tempList.repeatTimes === 3
                     )
+
                     if (tempList.repeatTimes === 3) {
                         wordNum++;
                         wordList.shift();
+                    } else {
+                        wordList.push(wordList.shift());
                     }
 
                 }
@@ -233,7 +237,6 @@ Page({
     },
 
     setNoteBook() {
-        const {wordList} = wordData
         wordList[0].inNotebook = !wordList[0].inNotebook
         page.setData({
                 inNotebook: wordList[0].inNotebook

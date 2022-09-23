@@ -12,7 +12,10 @@
                       style="background: {{inNotebook? '#FFCB33':'#4D5E80'}};mask-image:url('../../src/notebook.svg');-webkit-mask-image:url('../../src/notebook.svg');-moz-mask-image:url('../../src/notebook.svg') "
                 />
             </view>
-            <text class="sub_title" bind:tap="playVoice">{{phonetic}}</text>
+            <view class="sub_title" bind:tap="playVoice">
+                <text>{{phonetic}}</text>
+                <image class="property" src="../../src/property.svg"></image>
+            </view>
         </view>
         <view wx:key="index" wx:for="{{wordTranslation}}" data-view-id="{{index}}" class="button"
               style="background:{{wordBg[index].background}}"

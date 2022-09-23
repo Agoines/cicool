@@ -20,10 +20,11 @@
 }
 
 .sub_title {
+    display: flex;
+    align-items: center;
     width: 100%;
     font-style: normal;
     font-weight: 400;
     font-size: 32rpx;
-    display: inline-block;
     color: #000000;
 }
