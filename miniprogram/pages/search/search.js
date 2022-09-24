@@ -1,54 +1,51 @@
 const wordApi = require("../../utils/wordApi.js");
-
 const app = getApp()
+let page;
 Page({
     data: {
         inputShowed: false,
-        inputVal: ""
+        inputVal: "",
+        value: ""
     },
     onLoad() {
+        page = this
         this.setData({
             search: this.search.bind(this)
         })
     },
-    search: (value) => {
-        let resolveList = [];
-        return new Promise(async (resolve, reject) => {
-
-            if (value !== null && value !== '') {
-                await wordApi.getSearchResult(
-                    app.getUserId(),
-                    value,
-                    app.getToken()
-                ).then(
-                    searchData => {
-                        // 获取对应的单词
-                        let {directSearch} = searchData
-                        // 转换为对应数组
-                        for (let index = 0; index < directSearch.length; index++) {
-                            let item = {}
-                            item.text = directSearch[index].word + '\n' + directSearch[index].translation
-                            item.word = directSearch[index].word
-                            item.wordId = directSearch[index].wordId
-                            item.translation = directSearch[index].translation
-                            resolveList[index] = item
-                        }
-                        resolve(resolveList)
-                    }
-                ).catch(any =>
-                    reject(any)
-                )
-            } else {
-                resolve(resolveList)
-            }
-
-
+    input: function (e) {
+        this.setData({
+            value: e.detail.value
         })
+        return e.detail.value
+    },
+
+    async search() {
+        if (page.data.value !== null && page.data.value !== '') {
+            await wordApi.getSearchResult(
+                app.getUserId(),
+                this.data.value,
+                app.getToken()
+            ).then(
+                searchData => {
+                    // 获取对应的单词
+                    let {directSearch} = searchData
+                    page.setData({
+                        recycleList: directSearch
+                    })
+
+                }
+            )
+        } else {
+            page.setData({
+                recycleList: []
+            })
+        }
     },
 
     selectResult: async function (event) {
         console.log(event)
-        const wordId = event.detail.item.wordId
+        const wordId = event.currentTarget.id;
         wx.navigateTo({
             url: 'wordDetail/wordDetail?wordId=' + wordId,
             success: {}

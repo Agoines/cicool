@@ -1,7 +1,7 @@
 <view class="page">
     <view class="cover-box">
         <mp-toptips ext-class="toptips" msg="别点这么快，数据还没加载好呢" type="error" show="{{showTopTips}}"
-                    delay="{{10000}}"/>
+                    delay="{{2000}}"/>
         <view class="toolbar">
             <image class="avatarPic" src="{{avatarPic}}"></image>
             <text class="nickname">{{nickname}}</text>

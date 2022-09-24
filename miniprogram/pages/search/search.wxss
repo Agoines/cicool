@@ -1,8 +1,60 @@
+view {
+    width: initial !important;
+}
+
+.input-background {
+    display: flex;
+    align-items: center;
+    border-radius: 18rpx;
+    background: #ffffff;
+    padding: 30rpx 60rpx;
+}
+
+.tip {
+    height: auto;
+    text-align: center;
+}
+
+.input {
+    flex: 1;
+    font-size: 32rpx;
+
+}
+
+.search-icon {
+    width: 32rpx;
+    height: 32rpx;
+}
+
 .searchbar-result {
     margin-top: 0;
     font-size: 28rpx;
 }
 
-.searchbar-result:before {
-    display: none;
+.scroll-view {
+    width: initial;
+    margin-top: 36rpx;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20rpx;
+    margin-top: 20rpx;
+    background-size: cover;
+    border-radius: 18rpx;
+    background: #fff;
+    padding: 30rpx 60rpx;
+}
+
+.word-text {
+    font-style: normal;
+    font-weight: 700;
+    color: #141416;
+    font-size: 36rpx;
+}
+
+.word-description {
+    color: #777E90;
+    font-size: 32rpx;
 }

@@ -1,9 +1,21 @@
-<view style="position: fixed;height: 100%;width: 100%;background: var(--weui-BG-0);">
-    <view class="page__bd" style="padding-top: 140rpx">
-        <mp-searchbar placeholder="搜索你想知道的单词" bindselectresult="selectResult"
-                      search="{{search}}">
-            <mp-cells is="miniprogram_npm/weui-miniprogram/cells/cells">
-            </mp-cells>
-        </mp-searchbar>
+<view class="page">
+    <view class="cover-box">
+        <view class="input-background">
+            <input class="input" type="text" placeholder="请输入搜索内容"
+                   confirm-type="search"
+                   bindconfirm="search" bindinput="input"/>
+            <image class="search-icon" src="../../src/search.svg" bind:tap="search"></image>
+        </view>
+        <view class="tip" wx:if="{{value === '' && recycleList === undefined}}">
+            你可以在上方进行搜索
+        </view>
+        <recycle-view wx:elif="{{recycleList !== [] && recycleList === undefined}}" class="scroll-view">
+            <recycle-item id="{{recycleList[index].wordId}}" class="item" wx:for="{{recycleList}}" wx:key="id"
+                          bind:tap="selectResult">
+                <view class="word-text">{{recycleList[index].word}}</view>
+                <text class="word-description">{{recycleList[index].translation}}</text>
+            </recycle-item>
+        </recycle-view>
+        <view class="tip" wx:else>你所输入的没有搜索到，你可以换其他词语试试</view>
     </view>
 </view>
