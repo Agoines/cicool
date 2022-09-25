@@ -1,5 +1,5 @@
 view {
-    width: initial !important;
+    width: unset !important;
 }
 
 .input-background {
@@ -37,6 +37,7 @@ view {
 }
 
 .item {
+    width: 100%;
     display: flex;
     align-items: center;
     margin-bottom: 20rpx;

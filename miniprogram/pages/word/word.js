@@ -23,7 +23,7 @@ async function getData() {
                 app.getToken(),
                 app.getUserId(),
                 page.data.bookId,
-                parseInt(page.data.learnNum, 10) + 1
+                parseInt(page.data.learnNum, 10)
             )
         case 'review':
             page.setData({
@@ -33,7 +33,7 @@ async function getData() {
                 app.getToken(),
                 app.getUserId(),
                 page.data.bookId,
-                parseInt(page.data.reviewNum, 10) + 1
+                parseInt(page.data.reviewNum, 10)
             )
     }
 }
@@ -174,18 +174,16 @@ Page({
     },
 
     async next() {
+
         if (this.data.isChoose) {
             if (!this.data.afterChange) {
-                console.log("前", wordList[0].repeatTimes)
                 let temp = this.data.wordBg
                 if (chooseNum !== right) {
                     temp[chooseNum].background = "#FF4D3C"
                     temp[chooseNum].textColor = "#FFFFFF"
                     wordList.push(wordList.shift());
                 } else {
-                    console.log("前", wordList[0].repeatTimes)
                     wordList[0].repeatTimes += 1
-                    console.log("后", wordList[0].repeatTimes)
                     await wordApi.addLearningRecord(
                         app.getUserId(),
                         [{
@@ -202,7 +200,6 @@ Page({
                     } else {
                         wordList.push(wordList.shift());
                     }
-
                 }
                 temp[right].background = "#07C160"
                 temp[right].textColor = "#FFFFFF"
@@ -214,6 +211,7 @@ Page({
             } else {
                 if (wordList.length > 0) {
                     this.setData({
+                        isChoose: false,
                         afterChange: false,
                         wordBg: [{textColor: "#202124", background: "#FFFFFF"},
                             {textColor: "#202124", background: "#FFFFFF"},
@@ -226,9 +224,6 @@ Page({
                 wx.navigateTo({
                     url: '../finish/finish?wordType=' + wordType + '&&wordNum=' + wordNum,
                     success: {}
-                })
-                this.setData({
-                    isChoose: false
                 })
             }
         }

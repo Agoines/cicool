@@ -40,7 +40,7 @@ async function init() {
         app.getUserId(),
         app.getToken()
     ).then(allLearnData => {
-        const {master} = allLearnData
+            const {master} = allLearnData
             page.setData({
                 learnData: master
             })
@@ -65,10 +65,11 @@ async function init() {
             }
         )
 
+    } else {
+        page.setData({
+            bookName: '还未选择',
+        })
     }
-
-
-    console.log("初始化方法块结束")
 }
 
 /**
@@ -127,8 +128,6 @@ Page({
         avatarPic: app.getAvatarPic(),
         bookId: 0,
         learnData: 0,
-
-        bookName: '还未选择'
     },
 
     onLoad: async function () {

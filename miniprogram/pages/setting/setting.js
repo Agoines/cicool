@@ -8,8 +8,8 @@ async function updateSetting() {
             pronunciation: page.data.pronunciation,
             pronounce: page.data.pronounce,
             source: page.data.source,
-            learnNum: page.data.learnNum,
-            reviewNum: page.data.reviewNum
+            learnNum: parseInt(page.data.learnNum, 10) + 1,
+            reviewNum: parseInt(page.data.reviewNum, 10) + 1
         }
     )
 }
@@ -37,8 +37,8 @@ Page({
                 pronunciation: data.data.pronunciation,
                 pronounce: data.data.pronounce,
                 source: data.data.source,
-                learnNum: data.data.learnNum,
-                reviewNum: data.data.reviewNum,
+                learnNum: parseInt(data.data.learnNum, 10) - 1,
+                reviewNum: parseInt(data.data.reviewNum, 10) - 1,
                 avatarPic: data.data.avatarPic,
                 nickname: data.data.nickname,
             })
@@ -126,8 +126,8 @@ Page({
             pronunciation: this.data.pronunciation,
             pronounce: this.data.pronounce,
             source: this.data.source,
-            learnNum: this.data.learnNum,
-            reviewNum: this.data.reviewNum,
+            learnNum: parseInt(this.data.learnNum, 10) + 1,
+            reviewNum: parseInt(this.data.reviewNum, 10) + 1,
             avatarPic: this.data.avatarPic,
             nickname: this.data.nickname
         })

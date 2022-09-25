@@ -9,13 +9,13 @@
         <view class="tip" wx:if="{{value === '' && recycleList === undefined}}">
             你可以在上方进行搜索
         </view>
-        <recycle-view wx:elif="{{recycleList !== [] && recycleList === undefined}}" class="scroll-view">
+        <recycle-view wx:elif="{{recycleList !== []}}" class="scroll-view">
             <recycle-item id="{{recycleList[index].wordId}}" class="item" wx:for="{{recycleList}}" wx:key="id"
                           bind:tap="selectResult">
                 <view class="word-text">{{recycleList[index].word}}</view>
                 <text class="word-description">{{recycleList[index].translation}}</text>
             </recycle-item>
         </recycle-view>
-        <view class="tip" wx:else>你所输入的没有搜索到，你可以换其他词语试试</view>
+
     </view>
 </view>

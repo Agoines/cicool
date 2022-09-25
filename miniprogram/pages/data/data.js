@@ -39,7 +39,8 @@ Page({
         let learnSum = [], reviewSum = []
         const {dailySum} = dailySumByDate
         for (let sum in dailySum) {
-            xArr.push(new Date(now - (7 - sum) * 24 * 60 * 60 * 1000).toLocaleDateString())
+            const date = new Date(now - (7 - sum) * 24 * 60 * 60 * 1000)
+            xArr.push((date.getMonth() + 1) + "-" + date.getDate())
             const {learn, review} = dailySum[sum]
             learnSum.push(learn)
             reviewSum.push(review)

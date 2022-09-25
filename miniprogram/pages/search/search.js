@@ -4,7 +4,6 @@ let page;
 Page({
     data: {
         inputShowed: false,
-        inputVal: "",
         value: ""
     },
     onLoad() {
