@@ -1,3 +1,7 @@
+view {
+    width: unset !important;
+}
+
 .button_layout {
     position: absolute;
     width: 100%;
@@ -32,10 +36,11 @@
 }
 
 .button {
+    width: calc(100% - 100rpx);
     text-align: center;
     padding: 30rpx 36rpx;
-    margin-bottom: 40rpx;
-    margin-top: 40rpx;
+    margin-bottom: 20rpx;
+    margin-top: 20rpx;
     border-radius: 24rpx;
     box-shadow: 0 20rpx 60rpx rgba(38, 51, 77, 0.03);
     min-height: 50rpx;
@@ -56,6 +61,11 @@
     border-radius: 240rpx;
 }
 
+.scroll-view {
+    width: initial;
+    margin-top: 36rpx;
+}
+
 .fab_text {
     color: #FFFFFF;
 
@@ -69,7 +79,7 @@
     position: fixed;
     bottom: 0;
 
-    width: 100%;
+    width: 100% !important;
     height: 108rpx;
 
     justify-content: center;

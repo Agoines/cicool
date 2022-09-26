@@ -52,7 +52,7 @@ Page({
             width: 375,
             height: 212,
             xaxis: xArr,
-            range: {min: 0, max: Math.max(...learnSum, ...reviewSum) + 2},
+            range: {min: 0, max: Math.max(Math.max(...learnSum, ...reviewSum) + 2, 5)},
             yaxisfunc: data => data.toFixed(0),
             datas: [learnSum, reviewSum],
             barMargin: 20

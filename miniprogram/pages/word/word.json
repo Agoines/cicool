@@ -1,7 +1,9 @@
 {
   "usingComponents": {
     "mp-loading": "weui-miniprogram/loading/loading",
-    "mp-dialog": "weui-miniprogram/dialog/dialog"
+    "mp-dialog": "weui-miniprogram/dialog/dialog",
+    "recycle-view": "miniprogram-recycle-view/recycle-view",
+    "recycle-item": "miniprogram-recycle-view/recycle-item"
   },
   "onReachBottomDistance": 0,
   "navigationBarTitleText": "单词"

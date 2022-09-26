@@ -37,7 +37,7 @@ view {
 }
 
 .item {
-    width: 100%;
+    width: calc(100% - 120rpx);
     display: flex;
     align-items: center;
     margin-bottom: 20rpx;
@@ -49,6 +49,7 @@ view {
 }
 
 .word-text {
+
     font-style: normal;
     font-weight: 700;
     color: #141416;

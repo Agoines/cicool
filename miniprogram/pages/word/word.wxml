@@ -17,13 +17,17 @@
                 <image class="property" src="../../src/play.svg"></image>
             </view>
         </view>
-        <view wx:key="index" wx:for="{{wordTranslation}}" data-view-id="{{index}}" class="button"
-              style="background:{{wordBg[index].background}}"
-              bind:tap="refresh">
-            <mp-loading wx:if="{{item===''}}" ext-class="loading_style" type="dot-gray"
-                        animated="{{animated}}"></mp-loading>
-            <text wx:else class="card-text" style="color:{{wordBg[index].textColor}}">{{item}}</text>
-        </view>
+
+
+        <recycle-view class="scroll-view" id="scroll">
+            <recycle-item wx:key="index" wx:for="{{wordTranslation}}" data-view-id="{{index}}" class="button"
+                          style="background:{{wordBg[index].background}}"
+                          bind:tap="refresh">
+                <mp-loading wx:if="{{item===''}}" ext-class="loading_style" type="dot-gray"
+                            animated="{{animated}}"></mp-loading>
+                <text wx:else class="card-text" style="color:{{wordBg[index].textColor}}">{{item}}</text>
+            </recycle-item>
+        </recycle-view>
     </view>
 
     <view class="footer_container">
