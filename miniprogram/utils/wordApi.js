@@ -190,10 +190,12 @@ const addLearningRecord = (userId, record, token) => {
 // gstatic oxford: https://ssl.gstatic.com/dictionary/static/sounds/oxford/{word}--_gb_1.mp3
 const getWordVoiceUrl = (word, source = 0, type = 2) => {
     let url = ''
-    if (source === '0') {
-        url = `https://dict.youdao.com/dictvoice?type=${type}&audio=${word}`
-    } else if (source === '1') {
-        url = `https://ssl.gstatic.com/dictionary/static/sounds/oxford/${word}--_gb_1.mp3`
+    switch (source.toString()) {
+        case '0':
+            url = `https://dict.youdao.com/dictvoice?type=${type}&audio=${word}`;
+            break
+        case '1':
+            url = `https://ssl.gstatic.com/dictionary/static/sounds/oxford/${word}--_gb_1.mp3`
     }
     return url
 }
