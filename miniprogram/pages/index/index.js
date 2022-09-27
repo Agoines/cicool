@@ -87,8 +87,8 @@ async function setSetting() {
         pronunciation = 0
         pronounce = false
         source = 0
-        reviewNum = 9
-        learnNum = 9
+        reviewNum = 10
+        learnNum = 10
     } else {
         let settings = JSON.parse(userData.data.settings)
         pronunciation = settings.pronunciation
