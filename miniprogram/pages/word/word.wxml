@@ -3,12 +3,12 @@
         <view class="title_layout">
             <view class="title">{{word}}
                 <view style="width: 12rpx;">
-                    <view wx:if="{{item!==''}}">
+                    <view wx:if="{{wordTranslation!==[]}}">
                         <view wx:key="index" style="background: {{repeatTimes[index]? '#29CC39':'#4D5E8033'}}"
                               class="circle" wx:for="{{repeatTimes}}"></view>
                     </view>
                 </view>
-                <view wx:if="{{item!==''}}" class="add_note_book" bind:tap="setNoteBook"
+                <view wx:if="{{wordTranslation!==[]}}" class="add_note_book" bind:tap="setNoteBook"
                       style="background: {{inNotebook? '#FFCB33':'#4D5E80'}};mask-image:url('../../src/notebook.svg');-webkit-mask-image:url('../../src/notebook.svg');-moz-mask-image:url('../../src/notebook.svg') "
                 />
             </view>
@@ -37,7 +37,8 @@
         </view>
     </view>
 </view>
-<mp-dialog title="提示" show="{{isListEmpty}}" bindbuttontap="back" buttons="{{dialogButton}}">
-    <view>你没有任何需要{{isLearn ? '学习' : '复习'}}的单词</view>
+<mp-dialog title="提示" show="{{dialog}}" bindbuttontap="back" buttons="{{dialogButton}}">
+    <view wx:if="{{isBack}}">你没有任何需要{{isLearn ? '学习' : '复习'}}的单词</view>
+    <view wx:else>加载单词出现了一点小问题</view>
 </mp-dialog>
 

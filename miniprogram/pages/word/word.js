@@ -7,6 +7,7 @@ let tempList = ["", "", "", ""]
 let isLoading = true
 let chooseNum = 0
 let wordType;
+let options;
 let wordNum = 0;
 
 let page;
@@ -101,7 +102,7 @@ Page({
         phonetic: "",
         wordTranslation: ["", "", "", ""],
         temp: 0,
-        isListEmpty: false,
+        dialog: false,
         dialogButton: [{text: '确定'}],
         afterChange: false,
         noteBookColor: "#4D5E80",
@@ -111,7 +112,7 @@ Page({
             {textColor: "#202124", background: "#FFFFFF"}],
     },
 
-    onLoad: async function (options) {
+    onLoad: async function (o) {
         wordNum = 0;
         page = this
         const eventChannel = this.getOpenerEventChannel()
@@ -125,21 +126,32 @@ Page({
                 learnNum: data.data.learnNum,
                 reviewNum: data.data.reviewNum
             })
-
+            options = o
             wordType = options.type
-            await getData().then(
-                function (data) {
-                    wordData = data
-                    wordList = wordData.wordList
-                    if (wordList.length === 0) {
-                        page.setData({
-                            isListEmpty: true
-                        })
-                        return
+            try {
+                await getData().then(
+                    function (data) {
+                        wordData = data
+                        wordList = wordData.wordList
+                        if (wordList.length === 0) {
+                            page.setData({
+                                dialog: true,
+                                isBack: true
+                            })
+                            return
+                        }
+                        getWord(wordData);
                     }
-                    getWord(wordData);
-                }
-            );
+                );
+            } catch {
+                page.setData({
+                    dialog: true,
+                    isBack: false
+                })
+
+            }
+
+
         })
     },
 
@@ -245,11 +257,11 @@ Page({
             app.getToken()
         )
     },
-
     back() {
         wx.navigateBack({
             delta: 1,
             success: {}
         })
+
     }
 });
