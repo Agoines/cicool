@@ -17,8 +17,6 @@
                 <image class="property" src="../../src/play.svg"></image>
             </view>
         </view>
-
-
         <recycle-view class="scroll-view" id="scroll">
             <recycle-item wx:key="index" wx:for="{{wordTranslation}}" data-view-id="{{index}}" class="button"
                           style="background:{{wordBg[index].background}}"
@@ -28,13 +26,14 @@
                 <text wx:else class="card-text" style="color:{{wordBg[index].textColor}}">{{item}}</text>
             </recycle-item>
         </recycle-view>
-    </view>
-
-    <view class="footer_container">
-        <view class="fab" wx:if="{{isChoose}}" bind:tap="next">
-            <text class="fab_text" wx:if="{{afterChange}}">下一个</text>
-            <text class="fab_text" wx:else>提交</text>
-        </view>
+        <root-portal>
+            <view class="footer_container">
+                <view class="fab" wx:if="{{isChoose}}" bind:tap="next">
+                    <text class="fab_text" wx:if="{{afterChange}}">下一个</text>
+                    <text class="fab_text" wx:else>提交</text>
+                </view>
+            </view>
+        </root-portal>
     </view>
 </view>
 <mp-dialog title="提示" show="{{dialog}}" bindbuttontap="back" buttons="{{dialogButton}}">

@@ -201,15 +201,17 @@ Page({
                         [{
                             wordId: wordList[0].wordId,
                             repeatTimes: wordList[0].repeatTimes,
-                            completed: tempList.repeatTimes === 3
+                            completed: wordList[0].repeatTimes === 3
                         }],
                         app.getToken(),
                     )
+                    if (wordList[0].repeatTimes === 3) {
 
-                    if (tempList.repeatTimes === 3) {
+                        console.log("完成" + wordList[0].repeatTimes)
                         wordNum++;
                         wordList.shift();
                     } else {
+                        console.log("未完成" + wordList[0].repeatTimes)
                         wordList.push(wordList.shift());
                     }
                 }
