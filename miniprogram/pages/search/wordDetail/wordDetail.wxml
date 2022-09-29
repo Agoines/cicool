@@ -2,6 +2,7 @@
     <view class="cover-box">
         <view class="card">
             <text class="card-title">{{word}}</text>
+            <text class="card-item">翻译：{{translation}}</text>
             <text class="card-item">音标：{{phonetic}}</text>
             <text class="card-item">定义：{{definition}}</text>
             <view wx:key="index" wx:for="{{exchange}}" class="card-exchange-item">

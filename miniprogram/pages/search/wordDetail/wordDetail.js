@@ -15,11 +15,12 @@ Page({
             wordId,
             app.getToken()
         )
+        console.log(wordDetail)
         let exchange = wordDetail.word.exchange
+        let translation = wordDetail.word.translation
         if (exchange !== '') {
             console.log(exchange)
             exchange = exchange.split('/')
-            console.log(exchange)
             for (let i = 0; i < exchange.length; i++) {
                 const exchangeName = exchange[i].substring(0, 1)
                 switch (exchangeName) {
@@ -61,8 +62,8 @@ Page({
             word: wordDetail.word.word,
             definition: wordDetail.word.definition,
             exchange: exchange,
-            phonetic: wordDetail.word.phonetic
-
+            phonetic: wordDetail.word.phonetic,
+            translation: translation
         })
         console.log(wordDetail)
     }
